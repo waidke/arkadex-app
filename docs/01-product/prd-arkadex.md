@@ -1,22 +1,55 @@
 ---
 title: Product Requirements Document — ArkaDex
 product_name: ArkaDex
-version: 1.0
+version: 1.1
 status: Approved
 author: Eka Dwi Ramadhan
-last_updated: 2026-05-12
+last_updated: 2026-05-13
 reviewers:
   - Tim Produk
   - Tim Engineering
+---
+
+## Change Log
+
+| Versi | Tanggal | Author | Perubahan |
+|---|---|---|---|
+| **v1.0** | 2026-05-12 | Eka Dwi Ramadhan | Initial PRD — Phase 1 MVP + Phase 2 P1 features defined |
+| **v1.1** | 2026-05-13 | Eka Dwi Ramadhan | Added multi-TCG vision and long-term roadmap; architecture notes for game/language extensibility (`tcg_type` dan `language` fields); Product Vision Statement section added; Phase 3+ multi-TCG backlog items added; Out of Scope updated for Phase 2 multi-TCG; new Risk added (scope creep ke multi-TCG terlalu awal); Assumption 6 added (arsitektur agnostik-game); Long-term Goals added; Phase 3+ milestone section added; Glossary updated dengan TCG Type dan Language Edition |
+
 ---
 
 # Product Requirements Document: ArkaDex
 
 ## Executive Summary
 
-**ArkaDex** adalah platform digital untuk mengelola koleksi kartu Pokemon Trading Card Game (TCG) seri Bahasa Indonesia. Platform ini memberdayakan kolektor di Indonesia untuk dengan mudah mencatat, melacak, mengorganisir, dan memamerkan koleksi mereka, sekaligus memfasilitasi koneksi komunitas.
+**ArkaDex** adalah platform digital untuk mengelola koleksi kartu Trading Card Game (TCG). Visi jangka panjangnya adalah menjadi **universal TCG collection manager** — platform tunggal yang mendukung berbagai jenis TCG (Pokemon, One Piece, Digimon, Yu-Gi-Oh!, dan lainnya) dalam berbagai bahasa (Indonesia, Jepang, Inggris).
 
-Produk ini dirancang untuk menghilangkan gesekan dalam manajemen koleksi TCG Indonesia dibandingkan alternatif manual (Google Sheets, catatan offline) dengan menyediakan database komprehensif, alat manajemen intuitif, dan fitur berbagi yang terintegrasi dengan media sosial.
+**Launch awal** difokuskan pada Pokemon TCG seri Bahasa Indonesia — segmen dengan komunitas kolektor yang paling aktif dan berkembang di Indonesia. Platform ini memberdayakan kolektor untuk dengan mudah mencatat, melacak, mengorganisir, dan memamerkan koleksi mereka, sekaligus memfasilitasi koneksi komunitas.
+
+Produk ini dirancang untuk menghilangkan gesekan dalam manajemen koleksi TCG dibandingkan alternatif manual (Google Sheets, catatan offline) dengan menyediakan database komprehensif, alat manajemen intuitif, dan fitur berbagi yang terintegrasi dengan media sosial.
+
+---
+
+## Product Vision Statement
+
+> **"ArkaDex menjadi platform manajemen koleksi TCG universal yang dimulai dari komunitas Pokemon Indonesia — dibangun dari hari pertama untuk berkembang melampaui satu game dan satu bahasa."**
+
+### Visi Platform (Jangka Panjang)
+
+ArkaDex dirancang sebagai **platform agnostik-game**: arsitektur database dan sistem produk dibangun untuk mengakomodasi berbagai jenis TCG dan berbagai edisi bahasa kartu sejak awal. Ini berarti:
+
+- **Multi-TCG:** Setelah Pokemon TCG Indonesia solid, platform dapat diperluas ke One Piece TCG, Digimon TCG, Yu-Gi-Oh!, Magic: The Gathering, dan TCG lainnya tanpa refactor arsitektur besar.
+- **Multi-Language:** Database kartu dirancang dengan field `language` untuk membedakan edisi Indonesia (ID), Jepang (JP), dan Inggris (EN) dari awal.
+- **Multi-Market:** Komunitas kolektor di berbagai negara dapat menggunakan platform yang sama dengan database yang relevan untuk mereka.
+
+### Tahapan Ekspansi
+
+| Tahap | Fokus | Target |
+|---|---|---|
+| **Phase 1 MVP** | Pokemon TCG seri Indonesia | Q3 2026 |
+| **Phase 2** | Fitur lanjutan Pokemon TCG Indonesia (scanner, share, trade, gamification) | Q4 2026 |
+| **Phase 3+** | Ekspansi multi-TCG dan multi-bahasa | 2027+ |
 
 ---
 
@@ -33,6 +66,8 @@ Produk ini dirancang untuk menghilangkan gesekan dalam manajemen koleksi TCG Ind
 - Fitur berbagi ke media sosial dapat menjadi growth loop organik
 - Fitur trade local dapat meningkatkan retensi dan daily active users
 - Database kartu yang akurat menjadi aset unik yang sulit ditiru pesaing
+- **Ekspansi multi-TCG:** Pasar TCG global terus tumbuh — One Piece TCG, Digimon TCG, dan Yu-Gi-Oh! memiliki komunitas kolektor yang signifikan di Indonesia dan Asia. Dengan arsitektur yang extensible sejak awal, ArkaDex dapat menjadi platform pilihan untuk semua TCG, bukan hanya Pokemon.
+- **Multi-bahasa:** Banyak kolektor Indonesia juga mengoleksi kartu seri Jepang (JP) yang memiliki varian dan seri eksklusif. Dukungan multi-bahasa membuka segmen kolektor yang lebih luas dan membedakan ArkaDex dari kompetitor.
 
 ---
 
@@ -44,6 +79,7 @@ Produk ini dirancang untuk menghilangkan gesekan dalam manajemen koleksi TCG Ind
 2. **Retention:** Mencapai 30-day retention rate minimal 40% untuk pengguna MVP
 3. **Community Building:** Memfasilitasi interaksi komunitas TCG Indonesia melalui fitur sharing dan matching lokal
 4. **Data Accuracy:** Membangun database kartu TCG Indonesia yang akurat dan terus diperbarui seiring rilisan set baru
+5. **Platform Extensibility (Jangka Panjang):** Memastikan arsitektur database dan API siap mendukung TCG tambahan dan multi-bahasa tanpa refactor mayor — diukur dari minimnya technical debt saat ekspansi Phase 3+
 
 ### Key Performance Indicators (KPI)
 
@@ -55,6 +91,12 @@ Produk ini dirancang untuk menghilangkan gesekan dalam manajemen koleksi TCG Ind
 | Collection Completeness | ≥95% kartu seri Indonesia ter-cover di database | 99%+ | QA audit + user feedback |
 | Session Duration (avg) | 5–10 menit | 15+ menit (dengan fitur gamif) | Analytics |
 | Share-to-Install (Phase 2) | N/A | ≥10% dari total new installs | Deep link tracking |
+
+### Long-Term Goals (Phase 3+)
+
+- **TCG Expansion:** Onboard minimal 1 TCG tambahan (selain Pokemon) ke platform dengan effort minimal — validasi bahwa arsitektur extensible berhasil
+- **Multi-Language Coverage:** Database kartu seri Jepang (JP) untuk Pokemon TCG tersedia dengan field `language` yang konsisten
+- **Cross-TCG Retention:** Pengguna yang aktif di lebih dari satu TCG menunjukkan retention 20%+ lebih tinggi dibanding pengguna single-TCG
 
 ---
 
@@ -135,19 +177,25 @@ Produk ini dirancang untuk menghilangkan gesekan dalam manajemen koleksi TCG Ind
 - Profil dasar: username, email, optional: foto profil
 - Reset password via email verification
 
-#### FR 1.2 — Database Kartu Pokemon TCG Seri Indonesia
-- Database komprehensif kartu TCG seri Indonesia yang mencakup:
-  - Nama kartu
-  - Set rilisan
-  - Nomor kartu (e.g., `001/100`)
-  - Rarity (Common, Uncommon, Rare, Holo Rare, dll.)
-  - Supertype: Pokemon, Trainer, Energy
-  - Element/Type (untuk Pokemon): Fire, Water, Grass, Lightning, Psychic, Fighting, Darkness, Metal, Dragon, Fairy, Colorless
-- Pencarian kartu berdasarkan:
-  - Nama kartu (case-insensitive, partial match)
-  - Nomor kartu
-  - Set rilisan
-  - Filter: rarity, supertype, element
+#### FR 1.2 — Database Kartu TCG (Dimulai dengan Pokemon TCG Seri Indonesia)
+
+**Catatan Arsitektur:** Database kartu dirancang **extensible sejak awal** untuk mendukung multi-TCG dan multi-bahasa di masa depan. Schema mencakup field `tcg_type` (jenis TCG) dan `language` (edisi bahasa) pada setiap entri kartu, sehingga ekspansi ke TCG lain atau edisi bahasa lain tidak memerlukan refactor schema yang besar. Untuk MVP dan Phase 2, hanya data Pokemon TCG seri Indonesia yang akan dipopulasikan.
+
+Database komprehensif kartu TCG yang mencakup:
+- Nama kartu
+- Set rilisan
+- Nomor kartu (e.g., `001/100`)
+- Rarity (Common, Uncommon, Rare, Holo Rare, dll.)
+- Supertype: Pokemon, Trainer, Energy
+- Element/Type (untuk Pokemon): Fire, Water, Grass, Lightning, Psychic, Fighting, Darkness, Metal, Dragon, Fairy, Colorless
+- **`tcg_type`** — Jenis TCG kartu ini (e.g., `pokemon`, `one_piece`, `digimon`); untuk MVP selalu bernilai `pokemon`
+- **`language`** — Edisi bahasa kartu (e.g., `ID` untuk Indonesia, `JP` untuk Jepang, `EN` untuk Inggris); untuk MVP selalu bernilai `ID`
+
+Pencarian kartu berdasarkan:
+- Nama kartu (case-insensitive, partial match)
+- Nomor kartu
+- Set rilisan
+- Filter: rarity, supertype, element
 - Pagination dan limit untuk query besar
 
 #### FR 1.3 — Manajemen Koleksi Dasar
@@ -214,6 +262,9 @@ Lihat Section 3.5 dan 4A di dokumen ini untuk detail keempat fitur P1 Phase 2.
 - Hosting gambar artwork (akan dievaluasi legal solution-nya atau external link)
 - Social Login (Google, Facebook)
 - Wishlist global (bukan hanya per kota)
+- **Support TCG tambahan:** One Piece TCG, Digimon TCG, Yu-Gi-Oh!, Magic: The Gathering, dan TCG lainnya — memanfaatkan field `tcg_type` yang sudah ada di schema
+- **Multi-language database:** Database kartu seri Jepang (JP) dan Inggris (EN) untuk Pokemon TCG dan TCG lain — memanfaatkan field `language` yang sudah ada di schema
+- **Language switcher UI:** Opsi antarmuka dalam Bahasa Indonesia dan Bahasa Inggris untuk menjangkau kolektor non-Indonesia
 
 ---
 
@@ -272,7 +323,7 @@ Lihat Section 4A di dokumen ini.
 - API response time (P95): < 500ms
 - Halaman utama dan koleksi muat < 3 detik (4G/Fiber typical)
 - Pencarian kartu responsif: hasil muncul < 1 detik
-- Database index pada kolom frequently-queried: `user_id`, `set_id`, `name`
+- Database index pada kolom frequently-queried: `user_id`, `set_id`, `name`, `tcg_type`, `language`
 - Pagination mandatory untuk endpoint list (default limit 24, max 100)
 
 ### Availability & Reliability
@@ -320,6 +371,11 @@ Lihat Section 4A di dokumen ini.
 - Analytics dashboard customer-facing
 - API public untuk third-party developers (internal only)
 
+### Phase 2
+- **Support TCG lain selain Pokemon** — Ekspansi ke One Piece TCG, Digimon TCG, Yu-Gi-Oh!, atau TCG lainnya adalah out of scope untuk Phase 2. Namun field `tcg_type` sudah disiapkan di schema database sejak MVP.
+- **Multi-language database** — Database kartu seri Jepang (JP) dan Inggris (EN) adalah out of scope untuk Phase 2. Field `language` sudah disiapkan di schema untuk memudahkan ekspansi di Phase 3+.
+- **Language switcher UI** — Antarmuka multi-bahasa adalah out of scope untuk Phase 2.
+
 ### Ongoing / Always Out of Scope
 - Hosting atau distribusi artwork kartu berhak cipta tanpa lisensi
 - Merchant processing / payment gateway (untuk Phase 2 trade feature)
@@ -336,6 +392,7 @@ Lihat Section 4A di dokumen ini.
 3. **Legal Clearance:** Solusi yang tidak melanggar IP The Pokemon Company untuk fitur showcase dan badges sudah feasible. Legal review di phase 2 akan memvalidasi ini.
 4. **Internet Access:** Target pengguna memiliki akses internet yang stabil (3G/4G/Fiber) di Indonesia urban areas (Jakarta, Surabaya, Bandung, Medan, etc.).
 5. **Device Capability:** Target market memiliki smartphone dengan kamera decent untuk feature scanner (Phase 2). Fallback manual tetap tersedia.
+6. **Arsitektur Agnostik-Game:** Schema database dirancang agnostik-game dari hari pertama dengan field `tcg_type` dan `language` pada setiap entri kartu. Asumsi ini memastikan bahwa ekspansi ke multi-TCG dan multi-bahasa di Phase 3+ tidak memerlukan refactor schema yang signifikan — hanya membutuhkan penambahan data dan logika bisnis baru di lapisan aplikasi.
 
 ### Dependencies
 1. **Supabase Service Availability:** Seluruh aplikasi bergantung pada Supabase (Database + Auth + Hosting)
@@ -356,6 +413,7 @@ Lihat Section 4A di dokumen ini.
 | **Scalability Bottleneck** — Database atau API tidak handle traffic spike saat viral moment | Medium | Low | Arsitektur serverless + managed DB dari hari pertama; performance testing; rate limiting; caching strategy |
 | **Competitor Entry** — Produk sejenis muncul dengan fitur yang sama | Medium | High | Move fast untuk Phase 2 features; focus pada community & network effects (trade matching); unique design & UX |
 | **Card Scanner Accuracy Low** — Vision API accuracy < 80%; user frustrasi dengan multiple retries | Medium | Medium | Start dengan model yang sudah ada (Google Vision); fine-tune dengan dataset kartu Indonesia; fallback manual selalu tersedia |
+| **Scope Creep ke Multi-TCG Terlalu Awal** — Tim tergoda untuk menambahkan support TCG lain sebelum Pokemon TCG Indonesia solid, mengakibatkan fokus terpecah dan MVP terlambat | High | Medium | Tetapkan gating criteria yang ketat: ekspansi TCG baru hanya dimulai setelah Pokemon TCG Indonesia mencapai target MAU Phase 2 (2.000 MAU) dan 30-day retention 50%; semua request TCG baru di-backlog ke Phase 3+ tanpa pengecualian; lakukan architecture review saat Phase 3 dimulai untuk memastikan field `tcg_type` dan `language` sudah cukup sebelum onboarding TCG pertama |
 
 ---
 
@@ -365,7 +423,7 @@ Lihat Section 4A di dokumen ini.
 
 | Milestone | Duration | Owner | Deliverable |
 |---|---|---|---|
-| **M1: Setup & Database Schema** | 1–2 minggu | Engineering | Repo Next.js siap, DB schema, seed data awal |
+| **M1: Setup & Database Schema** | 1–2 minggu | Engineering | Repo Next.js siap, DB schema (termasuk field `tcg_type` dan `language`), seed data awal |
 | **M2: Auth & User Mgmt** | 2 minggu | Engineering | Registration, Login, Logout, Profile; Supabase Auth integrated |
 | **M3: Admin Panel & Data Import** | 1–2 minggu | Engineering | CSV/JSON bulk import kartu; basic admin UI |
 | **M4: Core Collection Features** | 3–4 minggu | Engineering + Design | UI komponen (card grid, add modal, edit dialog); API endpoints full; full stack testing |
@@ -389,14 +447,28 @@ Lihat Section 4A di dokumen ini.
 
 ---
 
+### Phase 3+ — Multi-TCG Expansion (Target 2027+, Conditional)
+
+Ekspansi ke multi-TCG dan multi-bahasa dimulai hanya setelah Phase 2 mencapai target KPI. Berikut item yang sudah direncanakan untuk Phase 3+:
+
+- Support TCG tambahan (One Piece TCG, Digimon TCG, Yu-Gi-Oh!, dll.) — memanfaatkan field `tcg_type` yang sudah ada
+- Database kartu seri Jepang (JP) dan Inggris (EN) — memanfaatkan field `language` yang sudah ada
+- Language switcher UI (Bahasa Indonesia / English)
+
+**Gate criteria Phase 3:** Pokemon TCG Indonesia mencapai 2.000 MAU dan 30-day retention 50% di akhir Phase 2.
+
+---
+
 ## Appendix
 
 ### A. Glossary
 
 | Term | Definition |
 |---|---|
-| **ArkaDex** | Platform manajemen koleksi Pokemon TCG seri Indonesia |
+| **ArkaDex** | Platform manajemen koleksi TCG universal; launch awal dengan Pokemon TCG seri Indonesia |
 | **TCG** | Trading Card Game |
+| **TCG Type** | Jenis TCG yang didukung platform (e.g., Pokemon, One Piece, Digimon, Yu-Gi-Oh!); direpresentasikan oleh field `tcg_type` di database |
+| **Language Edition** | Versi bahasa kartu: Indonesian (ID), Japanese (JP), English (EN); direpresentasikan oleh field `language` di database |
 | **Set** | Koleksi kartu yang dirilis dalam satu periode (e.g., "Pedang dan Perisai") |
 | **Card Number** | Nomor unik kartu dalam satu set (e.g., `001/100` = kartu pertama dari 100 total) |
 | **Rarity** | Tingkat kelangkaan kartu: Common, Uncommon, Rare, Holo Rare, etc. |
@@ -416,8 +488,3 @@ Lihat Section 4A di dokumen ini.
 - User Flow: `/docs/02-design/user-flows.md` (TBD)
 - Wireframe & Design: `/docs/02-design/wireframes.md` (TBD)
 - Data Source References (TCG Card Database): TBD
-
----
-
-**Document Version Control:**
-- **v1.0** (2026-05-12): Initial PRD — Phase 1 MVP + Phase 2 P1 features defined
