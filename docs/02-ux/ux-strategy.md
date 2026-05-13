@@ -83,7 +83,7 @@ Keberhasilan desain ini akan diukur melalui:
 | Risiko | Level | Impact | Mitigasi |
 | :--- | :---: | :--- | :--- |
 | Database terlalu besar untuk mobile | High | Loading lambat | Gunakan pagination atau infinite scroll pada list kartu |
-| Tanpa gambar artwork, UI terasa kosong | Medium | Engagement rendah | Gunakan skema warna gradien dinamis berdasarkan elemen kartu (Api, Air, dll) |
+| Tanpa gambar artwork, UI terasa kosong | Medium | Engagement rendah | Gunakan skema warna gradien dinamis berdasarkan elemen kartu (Api, Air, dll); diperkuat palet dark warm maroon + gold (`--primary` + `--secondary`) yang memberi kesan premium collector tanpa memerlukan artwork berlisensi |
 | Kesalahan input data kondisi | Low | Data koleksi tidak akurat | Terapkan mandatory dropdown tanpa default value |
 | Terminologi "TCG" terlalu generik saat MVP masih hanya Pokemon | Medium | Kebingungan pengguna tentang cakupan platform | Gunakan label "Pokemon TCG" secara eksplisit di semua copy UI MVP, dengan desain yang memungkinkan label berganti menjadi "One Piece TCG" dll. di Phase 3+ |
 

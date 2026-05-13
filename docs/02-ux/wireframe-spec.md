@@ -94,7 +94,7 @@ Fokus halaman ini adalah kecepatan mencari kartu untuk ditambahkan ke koleksi.
         - Kiri: Placeholder Thumbnail Mini.
         - Tengah:
             - Nama Kartu, Nomor, Rarity.
-            - Badge Status: "Sudah Dimiliki (x2)" — Tampilkan jika kartu ada di koleksi user (Warna kontras/Biru).
+            - Badge Status: "Sudah Dimiliki (x2)" — Tampilkan jika kartu ada di koleksi user (Warna kontras gold — `--secondary`).
         - Kanan: Button "+ Tambah".
 
 3. **No Results State:**

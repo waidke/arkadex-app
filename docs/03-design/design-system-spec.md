@@ -25,12 +25,12 @@ Kami menggunakan palet warna yang memberikan kesan "Gaming/Kolektor" namun tetap
 
 | Token Name | Value (Light) | Value (Dark) | Usage |
 | :--- | :--- | :--- | :--- |
-| `--primary` | `#E3350D` (Pokemon Red) | `#FF4B23` | CTA utama, active nav, focus ring, progress |
-| `--secondary` | `#30A7D7` (Water Blue) | `#4BC2F1` | Aksi sekunder, highlight |
+| `--primary` | `#800020` (ArkaDex Maroon) | `#C0252E` | CTA utama, active nav, focus ring, progress |
+| `--secondary` | `#9A7B2E` (Collector Gold) | `#D4AF37` | Aksi sekunder, highlight |
 
-> **Catatan Multi-TCG:** Token `--primary` (Pokemon Red) dan `--secondary` (Water Blue) adalah palet branding MVP untuk Pokemon TCG Indonesia. Phase 3+ akan memperluas sistem token dengan variabel per-TCG (e.g., `--primary-one-piece`, `--primary-digimon`) yang di-swap via CSS class pada `<body>` sesuai TCG aktif, tanpa mengubah nama token yang digunakan di komponen.
-| `--bg-surface-0` | `#F5F5F5` | `#0F172A` | Background dasar halaman |
-| `--bg-surface-1` | `rgba(255,255,255,0.7)` | `rgba(30, 41, 59, 0.7)` | Glass card, nav, bottom sheet |
+> **Catatan Multi-TCG:** Token `--primary` (ArkaDex Maroon) dan `--secondary` (Collector Gold) adalah palet branding MVP untuk Pokemon TCG Indonesia. Phase 3+ akan memperluas sistem token dengan variabel per-TCG (e.g., `--primary-one-piece`, `--primary-digimon`) yang di-swap via CSS class pada `<body>` sesuai TCG aktif, tanpa mengubah nama token yang digunakan di komponen.
+| `--bg-surface-0` | `#F7F3F3` | `#0D0A0A` | Background dasar halaman |
+| `--bg-surface-1` | `rgba(255, 249, 249, 0.85)` | `rgba(28, 18, 18, 0.8)` | Glass card, nav, bottom sheet |
 | `--nav-height` | `64px` | `64px` | CSS variable untuk sticky offset |
 | `color-text-main` | `#1C1C1E` | `#F8FAFC` | Teks utama |
 | `color-text-sub` | `#6C6C70` | `#94A3B8` | Teks sekunder, label, meta |
@@ -65,8 +65,8 @@ Slot kartu yang belum dimiliki pengguna, ditampilkan di grid pada posisi nomor u
 
 | Properti | Nilai |
 | :--- | :--- |
-| Background | `rgba(30, 41, 59, 0.5)` |
-| Border | `2px dashed rgba(255, 255, 255, 0.15)` |
+| Background | `rgba(28, 18, 18, 0.5)` |
+| Border | `2px dashed rgba(192, 37, 46, 0.25)` |
 | Ikon tengah | `+` SVG, opacity 20% |
 | Hover border | `rgba(255,255,255,0.3)` |
 | Label nama | `color-text-sub` (lebih redup dari owned) |
@@ -158,8 +158,8 @@ Dipakai sebagai loading state grid kartu dan set header.
     100% { transform: translateX(100%); }
 }
 .skeleton-card {
-    background: rgba(30, 41, 59, 0.5);
-    border: 2px dashed rgba(255, 255, 255, 0.08);
+    background: rgba(28, 18, 18, 0.5);
+    border: 2px dashed rgba(192, 37, 46, 0.15);
     position: relative;
     overflow: hidden;
 }

@@ -37,15 +37,15 @@ Gunakan variabel berikut untuk konsistensi visual (referensi: `design-system-spe
 
 | Elemen UI | Token Name | Properti CSS | Nilai (Dark Mode) |
 | :--- | :--- | :--- | :--- |
-| Background Utama | `--bg-surface-0` | `background-color` | `#0F172A` |
-| Card Surface | `--bg-surface-1` | `background-color` | `rgba(30, 41, 59, 0.7)` |
-| Primary Action | `--primary` | `background-color` | `#E3350D` (Pokemon Red) |
-| Secondary Action | `--secondary` | `background-color` | `#30A7D7` (Water Blue) |
-| Progress Bar | `--gradient-progress` | `background` | `linear-gradient(90deg, #E3350D, #30A7D7)` |
-| Not-Owned Card | — | `background` | `rgba(30, 41, 59, 0.5)` + `border: 2px dashed rgba(255,255,255,0.15)` |
+| Background Utama | `--bg-surface-0` | `background-color` | `#0D0A0A` |
+| Card Surface | `--bg-surface-1` | `background-color` | `rgba(28, 18, 18, 0.8)` |
+| Primary Action | `--primary` | `background-color` | `#C0252E` (ArkaDex Maroon) |
+| Secondary Action | `--secondary` | `background-color` | `#D4AF37` (Collector Gold) |
+| Progress Bar | `--gradient-progress` | `background` | `linear-gradient(90deg, #C0252E, #D4AF37)` |
+| Not-Owned Card | — | `background` | `rgba(28, 18, 18, 0.5)` + `border: 2px dashed rgba(192, 37, 46, 0.25)` |
 | Skeleton Base | — | `background` | `rgba(255, 255, 255, 0.08)` |
 
-Catatan: Token warna `--primary` (Pokemon Red) dan `--secondary` (Water Blue) adalah branding MVP untuk Pokemon TCG. Untuk Phase 3+, sistem token akan diperluas dengan tema per-TCG (e.g., One Piece menggunakan palet merah-hitam bajak laut).
+Catatan: Token warna `--primary` (ArkaDex Maroon) dan `--secondary` (Collector Gold) adalah branding MVP untuk Pokemon TCG. Untuk Phase 3+, sistem token akan diperluas dengan tema per-TCG (e.g., One Piece menggunakan palet merah-hitam bajak laut).
 
 ## Spesifikasi Mikro-Interaksi
 
@@ -67,7 +67,7 @@ Agar antarmuka terasa hidup, terapkan durasi dan kurva animasi berikut:
 - **Grid Hover (Desktop):**
   - Scale: `1.05`
   - Durasi: `200ms ease-in-out`
-  - Shadow: `0 10px 15px -3px rgba(0, 0, 0, 0.3)`
+  - Shadow: `0 10px 15px -3px rgba(192, 37, 46, 0.2)`
 
 ## Penanganan State & Edge Case
 
@@ -75,7 +75,7 @@ Agar antarmuka terasa hidup, terapkan durasi dan kurva animasi berikut:
 
 Kartu yang belum dimiliki ditampilkan sebagai slot placeholder di dalam grid, di posisi urutan nomor kartu yang semestinya.
 
-- **Visual:** Background `rgba(30,41,59,0.5)`, border `2px dashed rgba(255,255,255,0.15)`, ikon `+` opacity 20% di tengah.
+- **Visual:** Background `rgba(28, 18, 18, 0.5)`, border `2px dashed rgba(192, 37, 46, 0.25)`, ikon `+` opacity 20% di tengah.
 - **Interaksi:** Tap/klik membuka Bottom Sheet dengan qty = 0 (mode "tambah ke collection").
 - **Label nama:** Teks slate-500 (lebih redup dari kartu dimiliki).
 - **Aria-label pattern:** `"[Nama card], not in collection. Tap to add."`
