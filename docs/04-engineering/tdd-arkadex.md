@@ -80,27 +80,14 @@ Kolektor Pokemon TCG Indonesia saat ini mengelola koleksi dengan alat manual (sp
 
 ### 1.1 System Context (C4 Model — Level 1)
 
-```
-┌─────────────────────────────────────────────┐
-│                                             │
-│  User / Kolektor Pokemon TCG Indonesia      │
-│  (Web Browser)                              │
-│                                             │
-└──────────────┬──────────────────────────────┘
-               │
-               │ HTTPS
-               ▼
-┌─────────────────────────────────────────────┐
-│                                             │
-│  ArkaDex Platform                           │
-│  (Next.js + PostgreSQL)                     │
-│                                             │
-└──────────────┬──────────────────────────────┘
-               │
-               │ API Integration (Phase 2)
-               ▼
-      Google Vision API
-     (Card Scanner Feature)
+```mermaid
+flowchart TD
+    User["👤 User / Kolektor TCG Indonesia\n(Web Browser)"]
+    Platform["🖥️ ArkaDex Platform\n(Next.js + PostgreSQL)"]
+    Vision["🔎 Google Vision API\n(Card Scanner — Phase 2)"]
+
+    User -->|HTTPS| Platform
+    Platform -->|API Integration — Phase 2| Vision
 ```
 
 ### 1.2 Container Diagram (C4 Model — Level 2)
@@ -1125,13 +1112,15 @@ sequenceDiagram
 
 ### 9.1 Deployment Pipeline
 
-```
-Git Push → GitHub Actions
-  ↓
-  ├─ Linting (ESLint) + Type Check (tsc)
-  ├─ Run Tests (Jest)
-  ├─ Build Next.js app
-  └─ Deploy to Vercel (staging) → Manual Approval → Deploy to Vercel (production)
+```mermaid
+flowchart LR
+    Push["Git Push"] --> GHA["GitHub Actions"]
+    GHA --> Lint["Linting (ESLint)\n+ Type Check (tsc)"]
+    GHA --> Test["Run Tests (Jest)"]
+    GHA --> Build["Build Next.js app"]
+    Build --> Staging["Deploy to Vercel\n(Staging)"]
+    Staging --> Approval["Manual Approval"]
+    Approval --> Prod["Deploy to Vercel\n(Production)"]
 ```
 
 ### 9.2 Monitoring & Observability
