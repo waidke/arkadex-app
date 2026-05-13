@@ -1,10 +1,19 @@
 ---
 title: Wireframe Specification & Component Structure — ArkaDex
 product_name: ArkaDex
-version: 1.0
+version: 1.1
 status: Approved
 author: Eka Dwi Ramadhan
 last_updated: 2026-05-13
+---
+
+## Change Log
+
+| Versi | Tanggal | Author | Perubahan |
+|---|---|---|---|
+| v1.0 | 2026-05-13 | Eka Dwi Ramadhan | Initial Wireframe Specification & Component Structure |
+| v1.1 | 2026-05-13 | Eka Dwi Ramadhan | Update filter Set di Card Database dengan catatan Phase 3+; update copy No Results State; tambah catatan Phase 3+ di Header Modal; tambah section Future-Proofing Notes |
+
 ---
 
 # Wireframe Specification & Component Structure: ArkaDex
@@ -77,6 +86,7 @@ Fokus halaman ini adalah kecepatan mencari kartu untuk ditambahkan ke koleksi.
 1. **Search & Filter Bar (Sticky Top):**
     - Input Text: "Cari nama kartu..." (dengan ikon kaca pembesar).
     - Dropdown: "Filter by Set" (Default: Semua Set).
+      - MVP: Dropdown "Filter by Set" menampilkan hanya set Pokemon TCG Indonesia. Phase 3+: Dropdown ini akan didahului oleh filter "TCG Type" dan "Language", sehingga pengguna bisa memilih One Piece TCG (JP) sebelum memilih set-nya. Komponen Dropdown dirancang agar filter tambahan dapat disisipkan di atas tanpa perubahan layout.
 
 2. **Search Results (List View untuk kecepatan membaca informasi):**
     - Menampilkan hasil pencarian seketika (setelah debounce ketik).
@@ -88,7 +98,7 @@ Fokus halaman ini adalah kecepatan mencari kartu untuk ditambahkan ke koleksi.
         - Kanan: Button "+ Tambah".
 
 3. **No Results State:**
-    - Teks: "Kartu '[keyword]' tidak ditemukan di database seri Indonesia."
+    - Teks: "Kartu '[keyword]' tidak ditemukan di database Pokemon TCG Indonesia. Coba kata kunci atau filter yang berbeda."
 
 ---
 
@@ -101,6 +111,7 @@ Saat menekan tombol "+ Tambah" di Database, atau menekan kartu di "Koleksiku", a
 1. **Header Modal:**
     - Judul: "Tambah Kartu" / "Ubah Detail"
     - Tombol (X) Tutup di kanan atas.
+    - Phase 3+: Header akan menampilkan badge TCG Type ("Pokemon", "One Piece", dll.) di bawah nama kartu untuk konteks multi-TCG.
 
 2. **Detail Singkat Kartu:**
     - Nama Kartu (H2)
@@ -118,6 +129,20 @@ Saat menekan tombol "+ Tambah" di Database, atau menekan kartu di "Koleksiku", a
 4. **Footer Aksi (Sticky Bottom dalam Modal):**
     - (Khusus mode Edit) Button Secondary Kiri: "Hapus dari Koleksi" (Teks Merah).
     - Button Primary Kanan: "Simpan ke Koleksi".
+
+---
+
+## Future-Proofing Notes (Phase 3+)
+
+Berikut adalah elemen-elemen UI yang telah dirancang agar dapat di-extend untuk mendukung multi-TCG tanpa perlu redesign besar:
+
+| Elemen | Implementasi MVP | Evolusi Phase 3+ |
+| :--- | :--- | :--- |
+| **Filter Set di Database** | Single dropdown "Filter by Set" | Ditambahkan filter "TCG Type" dan "Language" di atas filter Set |
+| **Header Set di Dashboard** | Nama set Pokemon (e.g., "SV1S - Scarlet ex") | Badge TCG Type ditambahkan di sebelah nama set (e.g., "Pokemon — SV1S - Scarlet ex") |
+| **Empty State copy** | Spesifik Pokemon | Copy dinamis sesuai TCG yang aktif |
+| **Simbol Elemen di Card** | Simbol elemen Pokemon (Api, Air, dll.) | Diganti dengan simbol tipe elemen yang sesuai TCG masing-masing |
+| **Segmented Condition Control** | NM/EX/GD/PL/PR (universal untuk semua TCG fisik) | Tetap sama — standar kondisi fisik berlaku untuk semua TCG |
 
 ---
 

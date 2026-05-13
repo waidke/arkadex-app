@@ -1,10 +1,19 @@
 ---
 title: UX Strategy & Desain — ArkaDex
 product_name: ArkaDex
-version: 1.0
+version: 1.1
 status: Approved
 author: Eka Dwi Ramadhan
 last_updated: 2026-05-13
+---
+
+## Change Log
+
+| Versi | Tanggal | Author | Perubahan |
+|---|---|---|---|
+| v1.0 | 2026-05-13 | Eka Dwi Ramadhan | Initial UX Strategy & Desain |
+| v1.1 | 2026-05-13 | Eka Dwi Ramadhan | Tambah visi multi-TCG di Executive Summary dan Problem Statement; tambah Design Principle ke-5 (Extensible-by-Design); tambah JTBD Mengelola Multi-TCG (Phase 3+); tambah Design Risk terminologi TCG generik |
+
 ---
 
 # UX Strategy & Desain: ArkaDex
@@ -12,6 +21,8 @@ last_updated: 2026-05-13
 ## Executive Summary
 
 Dokumen ini mendefinisikan strategi pengalaman pengguna (UX Strategy) untuk ArkaDex. Strategi ini berfungsi sebagai kompas bagi tim desain dan pengembang untuk memastikan setiap fitur yang dibangun benar-benar menyelesaikan masalah nyata pengguna dan memberikan nilai bisnis yang terukur.
+
+ArkaDex diposisikan sebagai *universal TCG collection manager* — platform manajemen koleksi kartu kolektabel (TCG) yang terintegrasi untuk kolektor Indonesia. Pengembangan dimulai dari Pokemon TCG seri Bahasa Indonesia sebagai fokus MVP dan Phase 2, dengan fondasi arsitektur yang dirancang untuk mengakomodasi ekspansi ke TCG lain (One Piece, Digimon, dll.) pada Phase 3+ (2027+).
 
 ---
 
@@ -23,6 +34,7 @@ Dokumen ini mendefinisikan strategi pengalaman pengguna (UX Strategy) untuk Arka
 - Kehilangan jejak kartu mana yang masih kurang untuk melengkapi satu set tertentu.
 - Tidak memiliki referensi kelangkaan (*rarity*) yang mudah diakses dalam bahasa Indonesia.
 - Berisiko membeli kartu duplikat karena tidak mengetahui status kepemilikan kartu secara *real-time*.
+- Tidak ada platform manajemen koleksi TCG multi-game yang terintegrasi untuk kolektor Indonesia, padahal banyak kolektor yang mengoleksi lebih dari satu jenis TCG (Pokemon, One Piece, Digimon, dll.).
 
 ---
 
@@ -35,6 +47,8 @@ Berdasarkan analisis kebutuhan kolektor (pemula maupun berpengalaman), kita mera
 - **Melengkapi Set:** "Saat saya ingin melengkapi sebuah set tertentu, saya ingin melihat daftar kartu yang masih kurang dari set tersebut, sehingga saya bisa fokus mencari kartu yang tepat."
 
 - **Identifikasi Rarity:** "Saat saya memegang sebuah kartu, saya ingin mengetahui tingkat kelangkaannya secara instan, sehingga saya memahami nilai koleksi yang saya miliki."
+
+- **Mengelola Multi-TCG `(Phase 3+)`:** "Saat saya mengoleksi lebih dari satu jenis TCG (Pokemon dan One Piece), saya ingin satu platform yang bisa mengelola semua koleksi saya, sehingga saya tidak perlu berpindah-pindah aplikasi."
 
 ---
 
@@ -49,6 +63,8 @@ Untuk mencapai visi produk, seluruh keputusan antarmuka (UI) dan interaksi (UX) 
 3. **Low Friction Onboarding:** Meminimalkan hambatan bagi pengguna baru. Proses registrasi hingga penambahan kartu pertama harus dapat diselesaikan dalam waktu kurang dari 2 menit.
 
 4. **Copyright Compliance:** Menggunakan elemen visual pengganti yang cerdas dan estetis untuk menghormati hak cipta tanpa mengurangi keindahan antarmuka.
+
+5. **Extensible-by-Design:** Komponen, label, dan struktur navigasi dirancang untuk mengakomodasi penambahan TCG baru di masa depan (Phase 3+) tanpa perubahan besar pada pola interaksi yang sudah ada. Contoh: filter "Set" nantinya dapat berkembang menjadi filter "TCG Type + Set".
 
 ---
 
@@ -69,6 +85,7 @@ Keberhasilan desain ini akan diukur melalui:
 | Database terlalu besar untuk mobile | High | Loading lambat | Gunakan pagination atau infinite scroll pada list kartu |
 | Tanpa gambar artwork, UI terasa kosong | Medium | Engagement rendah | Gunakan skema warna gradien dinamis berdasarkan elemen kartu (Api, Air, dll) |
 | Kesalahan input data kondisi | Low | Data koleksi tidak akurat | Terapkan mandatory dropdown tanpa default value |
+| Terminologi "TCG" terlalu generik saat MVP masih hanya Pokemon | Medium | Kebingungan pengguna tentang cakupan platform | Gunakan label "Pokemon TCG" secara eksplisit di semua copy UI MVP, dengan desain yang memungkinkan label berganti menjadi "One Piece TCG" dll. di Phase 3+ |
 
 ---
 
