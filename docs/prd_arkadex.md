@@ -75,5 +75,3 @@ Indonesian collectors currently lack a dedicated platform for official Indonesia
 *   **Phase 1**: Infrastructure, Internal CMS, and Data Seeding (*Terang Sekali, Hantaman Ganda, Kilau Hitam*).
 *   **Phase 2**: Core Binder, Quick-Add UI, and Social Engine.
 *   **Phase 3**: Account Sync (OAuth) and Public Launch.
-
----
