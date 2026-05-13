@@ -409,7 +409,7 @@ Lihat Section 4A di dokumen ini.
 |---|---|---|---|
 | **Database Kartu Tidak Lengkap** — Data kartu yang missing atau salah akan merusak kepercayaan pengguna | High | Medium | Mulai dengan satu set lengkap untuk MVP; user-contributed corrections allowed; QA audit ketat sebelum launch per set |
 | **Intellectual Property Claim** — The Pokemon Company memberi cease & desist untuk usage artwork atau trademark | Critical | Low | Legal review untuk setiap fitur yang menyertakan visual; tidak menyimpan artwork lokal; gunakan hanya info tekstual public domain |
-| **Low Retention** — Pengguna churn tinggi setelah mencoba MVP karena fitur masih basic | Medium | Medium | Focus pada Phase 2 features yang drive retention (gamification, trade matching); validate user hypothesis early dengan beta testing |
+| **Low Retention** — Pengguna churn tinggi setelah mencoba MVP karena fitur masih basic | Medium | Medium | Focus pada Phase 2 features yang drive retention (gamification, trade matching); validate user hypothesis early via soft launch feedback dan analytics |
 | **Scalability Bottleneck** — Database atau API tidak handle traffic spike saat viral moment | Medium | Low | Arsitektur serverless + managed DB dari hari pertama; performance testing; rate limiting; caching strategy |
 | **Competitor Entry** — Produk sejenis muncul dengan fitur yang sama | Medium | High | Move fast untuk Phase 2 features; focus pada community & network effects (trade matching); unique design & UX |
 | **Card Scanner Accuracy Low** — Vision API accuracy < 80%; user frustrasi dengan multiple retries | Medium | Medium | Start dengan model yang sudah ada (Google Vision); fine-tune dengan dataset kartu Indonesia; fallback manual selalu tersedia |
@@ -427,7 +427,7 @@ Lihat Section 4A di dokumen ini.
 | **M2: Auth & User Mgmt** | 2 minggu | Engineering | Registration, Login, Logout, Profile; Supabase Auth integrated |
 | **M3: Admin Panel & Data Import** | 1–2 minggu | Engineering | CSV/JSON bulk import kartu; basic admin UI |
 | **M4: Core Collection Features** | 3–4 minggu | Engineering + Design | UI komponen (card grid, add modal, edit dialog); API endpoints full; full stack testing |
-| **M5: QA & Beta Testing** | 1–2 minggu | QA + Product | Internal beta dengan 50–100 beta testers; bug fix; UX refinement |
+| **M5: QA Testing** | 1–2 minggu | QA + Engineering | Functional testing, regression testing; bug fix; technical QA sign-off sebelum launch |
 | **M6: Launch Prep** | 1 minggu | Product + Ops | Production deployment; monitoring; documentation; soft launch; PR strategy |
 
 **MVP Target Launch:** Q3 2026 (end of August, jika project dimulai mid-May)

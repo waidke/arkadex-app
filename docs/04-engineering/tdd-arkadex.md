@@ -1,10 +1,10 @@
 ---
 title: Technical Design Document — ArkaDex
-project: ArkaDex — Platform Manajemen Koleksi Pokemon TCG Indonesia
-version: 1.0
+project: ArkaDex — Platform Manajemen Koleksi TCG (Multi-TCG Vision)
+version: 1.1
 status: Approved
 author: Eka Dwi Ramadhan
-last_updated: 2026-05-12
+last_updated: 2026-05-13
 reviewers:
   - Senior Engineer
   - Architecture Review Board
@@ -13,11 +13,20 @@ approvers:
   - Engineering Manager
 ---
 
+## Change Log
+
+| Versi | Tanggal | Author | Perubahan |
+|---|---|---|---|
+| v1.0 | 2026-05-12 | Eka Dwi Ramadhan | Initial TDD — Phase 1 MVP architecture |
+| v1.1 | 2026-05-13 | Eka Dwi Ramadhan | Added tcg_type & language fields ke CARDS dan SETS schema; updated ERD, SQL migration, indexes, API contracts, dan admin import validation untuk mendukung arsitektur multi-TCG yang extensible |
+
+---
+
 # Technical Design Document: ArkaDex
 
 ## Overview
 
-**ArkaDex** adalah platform web fullstack untuk manajemen koleksi kartu Pokemon Trading Card Game (TCG) seri Indonesia. Dokumen ini mendeskripsikan arsitektur teknis, model data, kontrak API, dan keputusan desain fundamental yang menopang implementasi.
+**ArkaDex** adalah platform web fullstack untuk manajemen koleksi Trading Card Game (TCG), yang **dimulai** dari Pokemon TCG seri Indonesia sebagai MVP. Platform dirancang dengan visi jangka panjang sebagai multi-TCG manager yang mampu mengakomodasi berbagai jenis TCG (Pokemon, One Piece, Digimon, Yu-Gi-Oh!, dll.) di Phase 3+ tanpa refactor mayor pada lapisan database.
 
 **Stack Teknis:**
 - **Frontend:** React (via Next.js) + Tailwind CSS v4
@@ -42,6 +51,7 @@ Kolektor Pokemon TCG Indonesia saat ini mengelola koleksi dengan alat manual (sp
 3. **Scalable-First:** Serverless architecture dari awal untuk mendukung pertumbuhan organik
 4. **Maintainable:** Modular, well-documented, easy to extend untuk Phase 2+ features
 5. **Legal-Compliant:** Tidak menyimpan/distribute artwork berlisensi The Pokemon Company
+6. **Extensible-by-Design:** Schema database dirancang untuk mendukung multi-TCG dan multi-bahasa di Phase 3+ tanpa refactor mayor — field `tcg_type` dan `language` tersedia sejak MVP
 
 ---
 
@@ -54,6 +64,7 @@ Kolektor Pokemon TCG Indonesia saat ini mengelola koleksi dengan alat manual (sp
 3. **Data Integrity:** ACID guarantees untuk consistency antara master data (CARDS) dan user collections
 4. **Flexibility:** Architecture yang mudah diextend untuk Phase 2 features (scanner, gamification, trade matching)
 5. **Security:** HTTPS, CSRF protection, secure session management, input validation ketat
+6. **Extensibility:** Schema database mendukung ekspansi TCG baru (Phase 3+) melalui field `tcg_type` dan `language` tanpa perlu schema migration major
 
 ### Non-Goals
 
@@ -148,6 +159,8 @@ BENAR: supertype = 'Pokemon', element = 'fire'
 
 Saat user mencari "tampilkan semua kartu tipe Water" ≠ "tampilkan semua Trainer". Jika dicampur ke satu field enum, query menjadi ambigu.
 
+> **Catatan Multi-TCG:** Field `element` dan constraint `check_element_rules` bersifat spesifik untuk Pokemon TCG. Untuk TCG lain di Phase 3+, field ini mungkin tidak relevan atau perlu disesuaikan. Lihat OQ-004 untuk diskusi lebih lanjut.
+
 ---
 
 ### 2.2 Entity-Relationship Diagram (ERD)
@@ -165,7 +178,9 @@ erDiagram
     SETS {
         uuid id PK
         string name "e.g., Pedang dan Perisai"
-        string code UK "e.g., SC1, SV01, etc."
+        string code "e.g., SC1, SV01, etc."
+        string tcg_type "enum: pokemon, one_piece, digimon, yugioh, ... | MVP: selalu 'pokemon'"
+        string language "enum: ID, JP, EN | MVP: selalu 'ID'"
         date release_date "Official release date"
         timestamp created_at
     }
@@ -178,6 +193,8 @@ erDiagram
         string rarity "enum: C, U, R, HR, etc."
         string supertype "enum: Pokemon | Trainer | Energy"
         string element "enum: fire, water, grass, lightning, ... | NULL for non-Pokemon"
+        string tcg_type "enum: pokemon, one_piece, digimon, yugioh, ... | MVP: selalu 'pokemon'"
+        string language "enum: ID, JP, EN | MVP: selalu 'ID'"
         timestamp created_at
     }
 
@@ -203,8 +220,8 @@ erDiagram
 | Constraint | Table | Columns | Reason |
 |---|---|---|---|
 | `UNIQUE(username)` | USERS | username | Prevent duplicate usernames |
-| `UNIQUE(code)` | SETS | code | Set codes must be unique (SC1, SV01, etc.) |
-| `UNIQUE(set_id, card_number)` | CARDS | set_id, card_number | One card per set per card number |
+| `UNIQUE(code, tcg_type, language)` | SETS | code, tcg_type, language | Set code unique per TCG per bahasa (extensible untuk multi-TCG) |
+| `UNIQUE(set_id, card_number, tcg_type, language)` | CARDS | set_id, card_number, tcg_type, language | Satu kartu per nomor per TCG per bahasa; mengakomodasi kartu dengan nomor sama dari TCG berbeda di masa depan |
 | `UNIQUE(user_id, card_id)` | USER_COLLECTIONS | user_id, card_id | One collection entry per user per card |
 
 #### Indexes for Query Performance
@@ -216,11 +233,16 @@ erDiagram
 | `idx_cards_set_id` | CARDS | set_id | Query: "Get all cards in set X" |
 | `idx_cards_name` | CARDS | name | Full-text search: "Find card by name" |
 | `idx_cards_supertype_element` | CARDS | (supertype, element) | Filter: "All Pokemon type Fire" |
+| `idx_cards_tcg_type` | CARDS | tcg_type | Filter by TCG type (multi-TCG Phase 3+) |
+| `idx_cards_language` | CARDS | language | Filter by language edition |
+| `idx_sets_tcg_type` | SETS | tcg_type | Filter sets by TCG type |
+| `idx_sets_language` | SETS | language | Filter sets by language edition |
 
 #### Check Constraints
 
 ```sql
 -- Enforce nullability rules for element based on supertype
+-- Constraint ini spesifik untuk Pokemon TCG; akan di-revisit saat Phase 3+ onboarding TCG baru
 ALTER TABLE CARDS ADD CONSTRAINT check_element_rules
 CHECK (
     (supertype = 'Pokemon' AND element IS NOT NULL)
@@ -228,6 +250,8 @@ CHECK (
     (supertype IN ('Trainer', 'Energy') AND element IS NULL)
 );
 ```
+
+> **Catatan:** Constraint `check_element_rules` relevan **hanya untuk Pokemon TCG**. Saat onboarding TCG baru di Phase 3+, constraint ini perlu dievaluasi kembali — TCG lain mungkin tidak menggunakan konsep `supertype`/`element` yang sama.
 
 ### 2.4 Supabase Auth Integration
 
@@ -362,7 +386,7 @@ Per PRD §6 (Legal & Copyright Compliance):
 ### 3.4 Master Data Endpoints (Public)
 
 #### GET /api/sets
-**Ambil daftar semua set Pokemon TCG Indonesia yang tersedia**
+**Ambil daftar semua set TCG yang tersedia (MVP: hanya Pokemon TCG Indonesia)**
 
 **Query Params:** None
 
@@ -374,12 +398,16 @@ Per PRD §6 (Legal & Copyright Compliance):
       "id": "uuid-1",
       "name": "Pedang dan Perisai",
       "code": "SC1",
+      "tcg_type": "pokemon",
+      "language": "ID",
       "release_date": "2022-03-25"
     },
     {
       "id": "uuid-2",
       "name": "Evolving Skies (Indonesian)",
       "code": "SV04",
+      "tcg_type": "pokemon",
+      "language": "ID",
       "release_date": "2023-06-15"
     }
   ]
@@ -401,6 +429,8 @@ Per PRD §6 (Legal & Copyright Compliance):
 | `rarity` | string | No | Filter by rarity enum (C, U, R, HR, SR, etc.) |
 | `supertype` | string | No | Filter by supertype: `Pokemon` \| `Trainer` \| `Energy` |
 | `element` | string | No | Filter by element: `fire`, `water`, `grass`, etc. (only for Pokemon) |
+| `tcg_type` | string | No | Filter by TCG type (default: `pokemon`) — e.g., `pokemon`, `one_piece`, `digimon` |
+| `language` | string | No | Filter by language edition (default: `ID`) — e.g., `ID`, `JP`, `EN` |
 | `page` | integer | No | Page number, default 1 |
 | `limit` | integer | No | Items per page, default 24, max 100 |
 
@@ -419,7 +449,9 @@ Per PRD §6 (Legal & Copyright Compliance):
       "card_number": "025/102",
       "rarity": "HR",
       "supertype": "Pokemon",
-      "element": "lightning"
+      "element": "lightning",
+      "tcg_type": "pokemon",
+      "language": "ID"
     }
   ]
 }
@@ -429,6 +461,7 @@ Per PRD §6 (Legal & Copyright Compliance):
 - `GET /api/cards?q=pikachu&limit=12` — Cari kartu dengan nama "pikachu"
 - `GET /api/cards?set_id=xxx&supertype=Trainer` — Semua kartu Trainer dari set tertentu
 - `GET /api/cards?element=fire&rarity=R` — Semua kartu Pokemon tipe Fire dengan rarity Rare
+- `GET /api/cards?tcg_type=pokemon&language=ID` — Semua kartu Pokemon TCG edisi Indonesia (default MVP)
 
 ---
 
@@ -446,7 +479,9 @@ Per PRD §6 (Legal & Copyright Compliance):
   "card_number": "117/102",
   "rarity": "HR",
   "supertype": "Pokemon",
-  "element": "fire"
+  "element": "fire",
+  "tcg_type": "pokemon",
+  "language": "ID"
 }
 ```
 
@@ -660,7 +695,9 @@ ELSE:
     "card_number": "049/078",
     "rarity": "Double Rare",
     "supertype": "Pokemon",
-    "element": "lightning"
+    "element": "lightning",
+    "tcg_type": "pokemon",
+    "language": "ID"
   },
   {
     "set_code": "SV1S",
@@ -668,7 +705,9 @@ ELSE:
     "card_number": "050/078",
     "rarity": "Uncommon",
     "supertype": "Trainer",
-    "element": null
+    "element": null,
+    "tcg_type": "pokemon",
+    "language": "ID"
   }
 ]
 ```
@@ -679,10 +718,12 @@ ELSE:
 |---|---|
 | `set_code` | Required; must exist in SETS table; if not found, entire batch rejected (422) |
 | `name` | Required; non-empty string |
-| `card_number` | Required; format `XXX/YYY`; must be unique per (set_code, card_number) |
+| `card_number` | Required; format `XXX/YYY`; must be unique per (set_code, card_number, tcg_type, language) |
 | `rarity` | Required; enum: C, U, R, HR, SR, etc. |
 | `supertype` | Required; enum: `Pokemon \| Trainer \| Energy` |
 | `element` | Conditional: if supertype=Pokemon → required; if Trainer/Energy → must be null |
+| `tcg_type` | Required; enum: `pokemon`, `one_piece`, `digimon`, `yugioh`; default `pokemon` jika tidak diisi |
+| `language` | Required; enum: `ID`, `JP`, `EN`; default `ID` jika tidak diisi |
 
 **Validation Response (400 Bad Request):**
 ```json
@@ -770,6 +811,31 @@ src/
     └── index.ts                  # TypeScript interfaces (Card, Set, Collection)
 ```
 
+**TypeScript Interfaces** — File `src/types/index.ts` mencakup field `tcg_type` dan `language` sejak MVP untuk konsistensi dengan schema database:
+
+```typescript
+interface Card {
+  id: string;
+  set_id: string;
+  name: string;
+  card_number: string;
+  rarity: string;
+  supertype: 'Pokemon' | 'Trainer' | 'Energy';
+  element?: string | null;
+  tcg_type: string; // e.g., 'pokemon', 'one_piece'
+  language: string; // e.g., 'ID', 'JP', 'EN'
+}
+
+interface CardSet {
+  id: string;
+  name: string;
+  code: string;
+  tcg_type: string;
+  language: string;
+  release_date: string;
+}
+```
+
 ### 4.2 Server-Side Logic
 
 ```
@@ -814,9 +880,12 @@ CREATE TABLE public.users (
 CREATE TABLE public.sets (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name VARCHAR(255) NOT NULL,
-  code VARCHAR(10) UNIQUE NOT NULL,
+  code VARCHAR(10) NOT NULL,
+  tcg_type VARCHAR(50) NOT NULL DEFAULT 'pokemon', -- e.g., pokemon, one_piece, digimon
+  language VARCHAR(5) NOT NULL DEFAULT 'ID', -- e.g., ID, JP, EN
   release_date DATE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(code, tcg_type, language) -- set code unique per TCG per language
 );
 
 CREATE TABLE public.cards (
@@ -827,8 +896,11 @@ CREATE TABLE public.cards (
   rarity VARCHAR(50) NOT NULL,
   supertype VARCHAR(50) NOT NULL CHECK(supertype IN ('Pokemon', 'Trainer', 'Energy')),
   element VARCHAR(50) CHECK(element IN ('fire', 'water', 'grass', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'dragon', 'fairy', 'colorless')),
+  tcg_type VARCHAR(50) NOT NULL DEFAULT 'pokemon', -- e.g., pokemon, one_piece, digimon
+  language VARCHAR(5) NOT NULL DEFAULT 'ID', -- e.g., ID, JP, EN
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(set_id, card_number),
+  UNIQUE(set_id, card_number, tcg_type, language),
+  -- Constraint ini spesifik untuk Pokemon TCG; akan di-revisit saat Phase 3+ onboarding TCG baru
   CONSTRAINT check_element_rules CHECK (
     (supertype = 'Pokemon' AND element IS NOT NULL)
     OR (supertype IN ('Trainer', 'Energy') AND element IS NULL)
@@ -851,6 +923,10 @@ CREATE INDEX idx_user_collections_user_id ON public.user_collections(user_id);
 CREATE INDEX idx_user_collections_set_id ON public.cards(set_id);
 CREATE INDEX idx_cards_name ON public.cards(name);
 CREATE INDEX idx_cards_element_supertype ON public.cards(supertype, element);
+CREATE INDEX idx_cards_tcg_type ON public.cards(tcg_type);
+CREATE INDEX idx_cards_language ON public.cards(language);
+CREATE INDEX idx_sets_tcg_type ON public.sets(tcg_type);
+CREATE INDEX idx_sets_language ON public.sets(language);
 
 -- Trigger: Auto-populate USERS profile table saat user baru register via Auth
 CREATE OR REPLACE FUNCTION public.handle_new_user()
@@ -980,10 +1056,23 @@ sequenceDiagram
 
 | Optimization | Implementation |
 |---|---|
-| **Indexing** | Indexes on frequently-queried columns: `user_id`, `set_id`, `name`, `(supertype, element)` |
+| **Indexing** | Indexes pada frequently-queried columns: `user_id`, `set_id`, `name`, `(supertype, element)`, `tcg_type`, `language` |
 | **Pagination** | Mandatory `limit` param (default 24, max 100); prevents full table scans |
 | **Query Optimization** | Use `EXPLAIN ANALYZE` during performance testing; add covering indexes if needed |
-| **Connection Pooling** | Supabase PgBouncer handles connection pooling for Vercel serverless |
+| **Connection Pooling** | Supabase PgBouncer handles connection pooling untuk Vercel serverless |
+
+**Index Detail:**
+
+| Index | Table | Columns | Tujuan |
+|---|---|---|---|
+| `idx_user_collections_user_id` | USER_COLLECTIONS | user_id | Query koleksi per user |
+| `idx_user_collections_set_id` | CARDS | set_id | Query kartu per set |
+| `idx_cards_name` | CARDS | name | Full-text search nama kartu |
+| `idx_cards_element_supertype` | CARDS | (supertype, element) | Filter Pokemon tipe tertentu |
+| `idx_cards_tcg_type` | CARDS | tcg_type | Filter by TCG type (multi-TCG Phase 3+) |
+| `idx_cards_language` | CARDS | language | Filter by language edition |
+| `idx_sets_tcg_type` | SETS | tcg_type | Filter sets by TCG type |
+| `idx_sets_language` | SETS | language | Filter sets by language edition |
 
 ### 7.2 API Performance
 
@@ -991,7 +1080,7 @@ sequenceDiagram
 |---|---|---|
 | **Response Time (P95)** | < 500ms | Monitor via observability tool; profile slow queries |
 | **Throughput** | 10.000+ concurrent users | Serverless auto-scaling; stateless design |
-| **Cache Strategy** | React Query client-side caching; next-on-demand-revalidation for static data | Cache cards, sets (low mutation frequency) |
+| **Cache Strategy** | React Query client-side caching; next-on-demand-revalidation untuk static data | Cache cards, sets (low mutation frequency) |
 
 ### 7.3 Frontend Performance
 
@@ -999,7 +1088,7 @@ sequenceDiagram
 |---|---|
 | **Lazy Loading** | Code splitting via Next.js dynamic imports; SSR for initial load |
 | **Image Optimization** | Next.js Image component with lazy loading (though no local artwork) |
-| **State Management** | React Query for server state; Zustand for client state (avoid prop drilling) |
+| **State Management** | React Query untuk server state; Zustand untuk client state (avoid prop drilling) |
 | **Bundle Size** | Tree-shaking; critical CSS inlining |
 
 ---
@@ -1010,7 +1099,7 @@ sequenceDiagram
 
 - **Coverage:** Utility functions, validators, type guards
 - **Framework:** Jest + React Testing Library
-- **Target:** > 80% coverage for critical paths
+- **Target:** > 80% coverage untuk critical paths
 
 ### 8.2 Integration Tests
 
@@ -1021,7 +1110,7 @@ sequenceDiagram
 ### 8.3 Performance Tests
 
 - **Load Testing:** k6 or Apache JMeter to simulate 10.000+ concurrent users
-- **Database Query Analysis:** `EXPLAIN ANALYZE` for slow queries
+- **Database Query Analysis:** `EXPLAIN ANALYZE` untuk slow queries
 - **Page Load Time:** Lighthouse audit; target < 3 seconds
 
 ### 8.4 Security Tests
@@ -1080,22 +1169,36 @@ Git Push → GitHub Actions
 
 - **Option A:** Google Vision API — Pre-trained, reliable, but per-query cost
 - **Option B:** Custom ML model — Requires training dataset of TCG Indonesia cards; higher upfront cost
-- **Decision:** TBD; recommend Option A for MVP Phase 2 due to low training overhead
+- **Decision:** TBD; recommend Option A untuk MVP Phase 2 due to low training overhead
 
 ### OQ-002: User Geo-Location for Trade Matching (Phase 2)
 
-**Status:** Pending user research validation
+**Status:** Pending Phase 2 go/no-go decision
 
 - **Question:** User willing to expose city location to other users for trade matching?
 - **Risk:** Privacy concern; mitigated by anonymized matching (reveal identity only after acceptance)
-- **Timeline:** User research survey before Phase 2 development
+- **Timeline:** Keputusan diambil saat Phase 2 kickoff berdasarkan feedback organik dari pengguna MVP
 
 ### OQ-003: Payment Gateway for Future Marketplace
 
 **Status:** Out of scope Phase 1-2
 
 - **Assumption:** Phase 1-2 trade matching is contact-only (no in-app payment)
-- **Future Decision:** If marketplace becomes necessary, evaluate Stripe, Midtrans (local Indonesia provider), or GCash
+- **Future Decision:** If marketplace becomes necessary, evaluate Stripe, Midtrans (local Indonesia provider), atau GCash
+
+### OQ-004: Schema Extensibility untuk Multi-TCG (Phase 3+)
+
+**Status:** Deferral confirmed — diputuskan saat Phase 3 kickoff
+
+- **Question:** Apakah field `tcg_type` dan `language` pada tabel CARDS dan SETS sudah cukup untuk mengakomodasi TCG lain, atau perlu tabel terpisah per TCG?
+- **Context:** Setiap TCG memiliki mekanisme berbeda:
+  - Pokemon: supertype (Pokemon/Trainer/Energy) + element
+  - One Piece TCG: cost, color, card type (Character/Event/Stage/Leader/Don!!)
+  - Yu-Gi-Oh!: card type (Monster/Spell/Trap), attribute, level/rank
+- **Option A:** Single `cards` table + JSON column `extended_attributes` untuk metadata TCG-spesifik — fleksibel tapi query kompleks
+- **Option B:** Separate `cards_pokemon`, `cards_one_piece` dll. table per TCG — query simpel tapi schema proliferation
+- **Option C:** EAV (Entity-Attribute-Value) pattern — sangat fleksibel tapi notorious untuk query performance
+- **Recommendation:** Evaluasi di Phase 3 kickoff setelah Pokemon TCG Indonesia solid; Option A (JSON column) paling pragmatis untuk scale awal
 
 ---
 
@@ -1123,8 +1226,3 @@ Git Push → GitHub Actions
 - Product Requirements Document: `/docs/01-product/prd-arkadex.md`
 - API OpenAPI Spec: `/docs/03-api/openapi-arkadex.yaml` (TBD)
 - Deployment Runbook: `/docs/06-operations/deployment-runbook.md` (TBD)
-
----
-
-**Document Version Control:**
-- **v1.0** (2026-05-12): Initial TDD — Phase 1 MVP architecture
