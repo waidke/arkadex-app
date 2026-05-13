@@ -43,3 +43,6 @@ next-env.d.ts
 # supabase CLI local files (jika nanti menggunakan Supabase CLI)
 supabase/.temp/
 supabase/.branches/
+
+# agents
+.agents/rules/
