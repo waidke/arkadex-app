@@ -28,10 +28,10 @@ graph TD
     style T1.5 fill:#dfd,stroke:#333,stroke-width:2px
 ```
 
-**Critical Path:** T1.1 → T1.3 (Longest Task) → T1.5
+**Critical Path:** T1.1 → T1.4 (Immediate Priority) → T1.2 → T1.3 → T1.5
 **Parallel Opportunities:** 
-- T1.4 can run parallel with T1.1 (reduces total elapsed time).
-- T1.2 and T1.3 can run parallel once T1.1 is completed.
+- T1.4 is prioritized post-T1.1 to establish the CI/CD baseline before auth integration.
+- T1.2 and T1.3 will follow once the production environment is stable.
 
 ---
 
@@ -114,13 +114,13 @@ graph TD
 ### T1.4 — Vercel Deployment & Env Secrets (Template B)
 **Goal:** Production-ready Vercel project + secret management (Supabase keys, OAuth secrets, etc.).
 **Total Effort:** 1 day | **Personas:** DevSecOps, QA, Tech Writer
-**Depends on:** None (Parallel with T1.1)
+**Status:** ✅ Completed
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Scope & Execute** | DevSecOps | Vercel Org access | Project init, Env vars, Custom domain | CI/CD pipeline green on staging |
-| **2. Verify** | QA | Deployed build | Smoke test deploy, Secret leak audit | No secrets in build logs; App reachable |
-| **3. Doc** | Tech Writer | Deployment setup | Deployment runbook & Rollback procedure | `docs/ops/deployment_runbook.md` |
+| **✅ 0. Scope & Execute** | DevSecOps | Vercel Org access | Project init, Env vars, Custom domain | CI/CD pipeline green on staging |
+| **✅ A. Verify** | QA | Deployed build | Smoke test deploy, Secret leak audit | No secrets in build logs; App reachable |
+| **✅ B. Doc** | Tech Writer | Deployment setup | Deployment runbook & Rollback procedure | `docs/ops/deployment_runbook.md` |
 
 **Start:** T+0 | **End:** T+1d
 
@@ -133,8 +133,8 @@ graph TD
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Scope & Execute** | Tech Writer | ADR-001..004 | ADR-005 (Auth Umbrella), ADR-006 (Deployment) | `docs/tdd_arkadex.md` index updated |
-| **2. Verify & Lock** | PM | `tdd_arkadex.md` | Final review of all TDD artifacts | ADRs status: Approved/Locked |
-| **3. Doc Update** | Tech Writer | Roadmap file | Updated Roadmap §9 Cross-References | Roadmap links resolve correctly |
+| **0. Scope & Execute** | Tech Writer | ADR-001..004 | ADR-005 (Auth Umbrella), ADR-006 (Deployment) | `docs/tdd_arkadex.md` index updated |
+| **A. Verify & Lock** | PM | `tdd_arkadex.md` | Final review of all TDD artifacts | ADRs status: Approved/Locked |
+| **B. Doc Update** | Tech Writer | Roadmap file | Updated Roadmap §9 Cross-References | Roadmap links resolve correctly |
 
 **Start:** T+7.5d | **End:** T+8.5d

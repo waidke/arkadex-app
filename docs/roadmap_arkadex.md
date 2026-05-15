@@ -15,7 +15,7 @@
 > - **Current Phase**: Phase 1 — Personal Alpha
 > - **Phase Progress**: 25% (Task T1.1 Completed ✅)
 > - **Blockers**: None
-> - **Next Action**: Initiate Task T1.2: Google OAuth & Progressive Gating
+> - **Next Action**: Initiate Task T1.4: Vercel Deployment & Env Secrets
 > - **Last Updated**: 2026-05-15
 
 ## Status Legend
