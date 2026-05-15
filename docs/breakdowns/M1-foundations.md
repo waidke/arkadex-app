@@ -67,26 +67,25 @@ graph TD
 | **✅ E. ADR-002 Doc** | Tech Writer | 0.5d | Audit report, Schema DDL | `docs/adr/ADR-002-supabase-rls-strategy.md` | TDD section complete |
 | **✅ F. DoD Audit** | PM | 0.25d | All phase outputs | T1.1 marked ✅ | Gate release to M1.2/1.3 |
 
-**Status:** ✅ Completed
-
 **Start:** T+0 | **End:** T+4d
 
 ---
 
-### T1.2 — Google OAuth & Progressive Gating (Template A)
+### T1.2 — Google OAuth & Progressive Gating
 **Goal:** Wire Supabase Auth + Google OAuth, plus progressive gating (anonymous → authenticated → owner-only).
 **Total Effort:** 3 days | **Personas:** PM, DevSecOps, SA+Dev, QA, Tech Writer
 **Depends on:** T1.1
+**Status:** ✅ Completed
 
 | Phase | Persona | Duration | Input | Output | DoD & Handoff |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **0. Scope Pre-Flight** | PM | 0.25d | PRD Auth requirements | Gating tiers definition | Tiers locked; unblock Phase A |
-| **A. Provider Config** | DevSecOps | 0.5d | Google Cloud OAuth credentials | Supabase Auth provider active | Secrets in Vercel/Local ready |
-| **B. Auth Middleware** | SA+Dev | 1d | Gating tiers, Phase A ready | Middleware guards + Session handler | Route protection verified locally |
-| **C. Hardening** | DevSecOps | 0.5d | Phase B implementation | Rate limiting & Brute-force protection | Security audit sign-off |
-| **D. E2E Auth Test** | QA | 0.5d | Auth flow live on staging | `tests/auth_flow.spec.ts` | Session edge cases verified |
-| **E. ADR-003 Doc** | Tech Writer | 0.25d | Flow design + Setup steps | `docs/adr/ADR-003-auth-strategy.md` | Setup runbook ready |
-| **F. UX Walkthrough** | PM | 0.25d | QA sign-off, live staging | T1.2 marked ✅ | Gating UX sign-off |
+| **✅ 0. Scope Pre-Flight** | PM | 0.25d | PRD Auth requirements | Gating tiers definition | Tiers locked; unblock Phase A |
+| **✅ A. Provider Config** | DevSecOps | 0.5d | Google Cloud OAuth credentials | Supabase Auth provider active | Secrets in Vercel/Local ready |
+| **✅ B. Auth Middleware** | SA+Dev | 1d | Gating tiers, Phase A ready | Middleware guards + Session handler | Route protection verified locally |
+| **✅ C. Hardening** | DevSecOps | 0.5d | Phase B implementation | Rate limiting & Brute-force protection | Security audit sign-off |
+| **✅ D. E2E Auth Test** | QA | 0.5d | Auth flow live on staging | `tests/auth_flow.spec.ts` | Session edge cases verified |
+| **✅ E. ADR-003 Doc** | Tech Writer | 0.25d | Flow design + Setup steps | `docs/adr/ADR-003-auth-strategy.md` | Setup runbook ready |
+| **✅ F. UX Walkthrough** | PM | 0.25d | QA sign-off, live staging | T1.2 marked ✅ | Gating UX sign-off |
 
 **Start:** T+4d | **End:** T+7d
 

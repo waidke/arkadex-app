@@ -91,7 +91,17 @@ C4Container
 - **Rationale**: Developing with React/Tailwind and converting to PNG is significantly faster than manual Canvas coordinate mapping.
 - **Mitigation**: Assets are served from the same origin to avoid CORS-related canvas taint.
 
-### ADR-003: Lean CMS Implementation
+### ADR-003: Authentication & Progressive Gating Strategy
+- **Decision**: Google OAuth only; three-tier progressive gating (Anonymous → Authenticated → Admin); server-side session via Supabase SSR; environment-based admin whitelist.
+- **Key Points**:
+  - Tier 1 (Anonymous): Read-only catalog access; collection in `localStorage`
+  - Tier 2 (Authenticated): OAuth login; `localStorage` merge to `user_cards` (Verify-then-Clear)
+  - Tier 3 (Admin): Email whitelist via `ADMIN_EMAIL_WHITELIST` env var only (not stored in DB)
+  - PKCE callback with open-redirect guard (`startsWith('/')`)
+  - `getUser()` in middleware (verified JWT, not `getSession()`)
+- **Reference**: [ADR-003-auth-strategy.md](../adr/ADR-003-auth-strategy.md)
+
+### ADR-004: Lean CMS Implementation
 **Context**: Internal team needs to ingest bulk TCG data.
 
 **Decision**: **Next.js Admin UI (`/admin/bulk-upload`)**.

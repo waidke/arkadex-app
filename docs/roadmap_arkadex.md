@@ -13,12 +13,17 @@
 > **Current Focus**
 > - **Active Milestone**: M1 — Foundations
 > - **Current Phase**: Phase 1 — Personal Alpha
-> - **Phase Progress**: 25% (Task T1.1 Completed ✅)
+> - **Phase Progress**: 75% (T1.1, T1.2, T1.4 COMPLETED ✅)
 > - **Blockers**: None
-> - **Next Action**: Initiate Task T1.4: Vercel Deployment & Env Secrets
+> - **Next Action**: T1.3 — Lean CMS for Bulk Ingestion
 > - **Last Updated**: 2026-05-15
 
 ## Status Legend
+- **T1.1: Supabase Schema & RLS** — 🟢 COMPLETED
+- **T1.2: Google OAuth & Gating** — 🟢 COMPLETED
+- **T1.3: Lean CMS for Bulk Ingestion** — 🟡 IN PROGRESS
+- **T1.4: Vercel Deployment** — 🟢 COMPLETED
+- **T1.5: TDD Index & ADR Lock** — ⚪ NOT STARTED
 - ⚪ **Not Started**: Task is in the backlog.
 - 🟡 **In Progress**: Actively being worked on.
 - 🟢 **Completed**: Done and verified.
@@ -82,10 +87,10 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 
 | Task ID | Track | Description | Status |
 | :--- | :--- | :--- | :--- |
-| **T1.1** | Core | Implement Supabase Schema & RLS Policies | 🟡 |
-| **T1.2** | Core | Setup Google OAuth & Progressive Gating | ⚪ |
+| **T1.1** | Core | Implement Supabase Schema & RLS Policies | 🟢 |
+| **T1.2** | Core | Setup Google OAuth & Progressive Gating | 🟢 |
 | **T1.3** | Content | Build Lean CMS for bulk ingestion (F-03) | ⚪ |
-| **T1.4** | DevOps | Configure Vercel Deployment & Env Secrets | ⚪ |
+| **T1.4** | DevOps | Configure Vercel Deployment & Env Secrets | 🟢 |
 | **T1.5** | Quality | TDD Index & Cross-cutting ADRs Lock | ⚪ |
 
 **Estimated: 11–14 Days** (Refined with persona overhead)
@@ -183,7 +188,7 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 
 | Phase | Milestone | Status | Effort | Progress |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: Personal Alpha** | M1 Foundations | ⚪ | 11–14 Days | 0 / 5 tasks |
+| **Phase 1: Personal Alpha** | M1 Foundations | 🟡 | 11–14 Days | 2 / 5 tasks |
 | | M2 Content | ⚪ | 6–8 Days | 0 / 4 tasks |
 | | M3 Utility | ⚪ | 9–12 Days | 0 / 3 tasks |
 | **Phase 2: Public Beta** | M4 Social Engine | ⚪ | 10–13 Days | 0 / 3 tasks |
