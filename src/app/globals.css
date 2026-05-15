@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  /* ArkaDex Color Palette */
+  --color-ark-black: #050505;
+  --color-ark-purple: #a855f7;
+  --color-ark-blue: #3b82f6;
+  --color-ark-surface: #0a0a0a;
+  
+  /* Glassmorphism Semantic Tokens */
+  --color-glass-bg: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-highlight: rgba(255, 255, 255, 0.12);
+  
+  /* Custom Animations */
+  --animate-glow: glow 2s ease-in-out infinite;
+  
+  @keyframes glow {
+    0%, 100% { opacity: 0.5; filter: blur(10px); }
+    50% { opacity: 0.8; filter: blur(15px); }
+  }
+}
+
+:root {
+  --background: #050505;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Base Glass Utility */
+@layer utilities {
+  .ark-glass {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--color-glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+  
+  .ark-glass-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ark-glass-hover:hover {
+    background: var(--color-glass-highlight);
+    border-color: rgba(168, 85, 247, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Custom Scrollbar for Premium Feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ark-purple);
+  }
+}
