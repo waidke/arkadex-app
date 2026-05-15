@@ -13,9 +13,9 @@
 > **Current Focus**
 > - **Active Milestone**: M1 — Foundations
 > - **Current Phase**: Phase 1 — Personal Alpha
-> - **Phase Progress**: 0%
+> - **Phase Progress**: 25% (Task T1.1 Completed ✅)
 > - **Blockers**: None
-> - **Next Action**: Design ADR-001 for Supabase Schema & RLS
+> - **Next Action**: Initiate Task T1.2: Google OAuth & Progressive Gating
 > - **Last Updated**: 2026-05-15
 
 ## Status Legend
@@ -82,7 +82,7 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 
 | Task ID | Track | Description | Status |
 | :--- | :--- | :--- | :--- |
-| **T1.1** | Core | Implement Supabase Schema & RLS Policies | ⚪ |
+| **T1.1** | Core | Implement Supabase Schema & RLS Policies | 🟡 |
 | **T1.2** | Core | Setup Google OAuth & Progressive Gating | ⚪ |
 | **T1.3** | Content | Build Lean CMS for bulk ingestion (F-03) | ⚪ |
 | **T1.4** | DevOps | Configure Vercel Deployment & Env Secrets | ⚪ |

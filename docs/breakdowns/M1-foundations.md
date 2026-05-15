@@ -55,17 +55,19 @@ graph TD
 ### T1.1 — Implement Supabase Schema & RLS Policies
 **Goal:** Establish secure multi-tenant data layer with encryption, RLS isolation, and audit trails.
 **Total Effort:** 4 days | **Personas:** PM, DevSecOps, SA+Dev, QA, Tech Writer
-**Status:** ⚪ Not Started
+**Status:** ✅ Completed
 
 | Phase | Persona | Duration | Input | Output | DoD & Handoff |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **0. Scope Pre-Flight** | PM | 0.25d | PRD KR1-4, threat model sketch | Approval boundary document | Scope locked; unblock Phase A |
-| **A. Infra Provisioning** | DevSecOps | 0.5d | Approved scope, Supabase creds | `.env.local`, project init | Phase B ready for migrations |
-| **B. Schema Design** | SA+Dev | 1d | TDD ADR-001 draft, Env ready | `migrations/*.sql` committed | Peer review by DevSecOps |
-| **C. RLS Authoring** | DevSecOps | 1d | Schema applied, Phase B sign-off | `policies/rls_*.sql` files | RLS isolation test suite ready |
-| **D. RLS Isolation Audit** | QA | 0.5d | Policies live, test DB seeded | Audit report (`docs/audits/rls_isolation_report.md`) | Phase E ready for TDD docs |
-| **E. ADR-002 Doc** | Tech Writer | 0.5d | Audit report, Schema DDL | `docs/adr/ADR-002-supabase-rls-strategy.md` | TDD section complete |
-| **F. DoD Audit** | PM | 0.25d | All phase outputs | T1.1 marked ✅ | Gate release to M1.2/1.3 |
+| **✅ 0. Scope Pre-Flight** | PM | 0.25d | PRD KR1-4, threat model sketch | Approval boundary document | Scope locked; unblock Phase A |
+| **✅ A. Infra Provisioning** | DevSecOps | 0.5d | Approved scope, Supabase creds | `.env.local`, project init | Phase B ready for migrations |
+| **✅ B. Schema Design** | SA+Dev | 1d | TDD ADR-001 draft, Env ready | `migrations/*.sql` committed | Peer review by DevSecOps |
+| **✅ C. RLS Authoring** | DevSecOps | 1d | Schema applied, Phase B sign-off | `supabase/migrations/*_rls_policies.sql` | RLS isolation test suite ready |
+| **✅ D. RLS Isolation Audit** | QA | 0.5d | Policies live, test DB seeded | Audit report (`docs/audits/rls_isolation_report.md`) | Phase E ready for TDD docs |
+| **✅ E. ADR-002 Doc** | Tech Writer | 0.5d | Audit report, Schema DDL | `docs/adr/ADR-002-supabase-rls-strategy.md` | TDD section complete |
+| **✅ F. DoD Audit** | PM | 0.25d | All phase outputs | T1.1 marked ✅ | Gate release to M1.2/1.3 |
+
+**Status:** ✅ Completed
 
 **Start:** T+0 | **End:** T+4d
 
