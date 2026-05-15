@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hi-Fi Prototype — F-XX &lt;Feature Name&gt;</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 font-sans antialiased">
+    <header class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-7xl px-4 py-3">
+        <h1 class="text-lg font-semibold">Hi-Fi Prototype — F-XX</h1>
+        <p class="text-sm text-slate-500">
+          Boilerplate. Copy ke <code>prototypes/F-XX/</code> dan adapt. DoD: <code>docs/process/artifact-rubric.md</code>.
+        </p>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 py-6 space-y-12">
+      <!-- ============ Mobile (375px) — All UI States ============ -->
+      <section>
+        <h2 class="text-base font-semibold mb-3">Mobile (375px) — All UI States</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <article class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-3 py-2 text-xs font-medium uppercase tracking-wide text-slate-600">
+              Loading
+            </div>
+            <div class="w-[375px] max-w-full bg-white" data-testid="state-loading">
+              <div class="p-4 text-center text-slate-400">[ skeleton / spinner ]</div>
+            </div>
+          </article>
+
+          <article class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-3 py-2 text-xs font-medium uppercase tracking-wide text-slate-600">
+              Empty
+            </div>
+            <div class="w-[375px] max-w-full bg-white" data-testid="state-empty">
+              <div class="p-4 text-center text-slate-400">[ empty illustration + primary CTA ]</div>
+            </div>
+          </article>
+
+          <article class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-3 py-2 text-xs font-medium uppercase tracking-wide text-slate-600">
+              Error
+            </div>
+            <div class="w-[375px] max-w-full bg-white" data-testid="state-error">
+              <div class="p-4 text-center text-rose-500">[ error message + retry CTA ]</div>
+            </div>
+          </article>
+
+          <article class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-3 py-2 text-xs font-medium uppercase tracking-wide text-slate-600">
+              Loaded (Success)
+            </div>
+            <div class="w-[375px] max-w-full bg-white" data-testid="state-loaded">
+              <div class="p-4 text-slate-700">[ feature content — happy path ]</div>
+            </div>
+          </article>
+
+          <article class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="bg-slate-100 px-3 py-2 text-xs font-medium uppercase tracking-wide text-slate-600">
+              Partial Data
+            </div>
+            <div class="w-[375px] max-w-full bg-white" data-testid="state-partial">
+              <div class="p-4 text-amber-600">[ partial data + warning indicator ]</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ Desktop (1280px) ============ -->
+      <section>
+        <h2 class="text-base font-semibold mb-3">Desktop (1280px) — Loaded State</h2>
+        <article class="border border-slate-200 rounded-lg overflow-hidden">
+          <div class="bg-slate-100 px-3 py-2 text-xs font-medium uppercase tracking-wide text-slate-600">
+            Loaded — Desktop
+          </div>
+          <div class="w-full max-w-[1280px] mx-auto bg-white" data-testid="desktop-state-loaded">
+            <div class="p-6 text-slate-700">[ desktop layout — responsive adaptation of mobile content ]</div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ============ Interactive States ============ -->
+      <section>
+        <h2 class="text-base font-semibold mb-3">Interactive States</h2>
+        <div class="flex flex-wrap gap-3">
+          <button
+            class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            data-testid="btn-primary"
+          >
+            Primary
+          </button>
+          <button
+            class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white opacity-50 cursor-not-allowed"
+            disabled
+            data-testid="btn-primary-disabled"
+          >
+            Primary — Disabled
+          </button>
+          <button
+            class="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-400"
+            data-testid="btn-secondary"
+          >
+            Secondary
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ Walkthrough Checklist ============ -->
+      <section class="border-t border-slate-200 pt-6">
+        <h2 class="text-base font-semibold mb-2">Walkthrough Checklist</h2>
+        <ul class="text-sm text-slate-600 list-disc pl-6 space-y-1">
+          <li>Bisa walk happy path end-to-end tanpa "imagine here"?</li>
+          <li>Setiap UI state di spec ada di prototype?</li>
+          <li>Setiap element punya <code>data-testid</code> yang akan dipakai test?</li>
+          <li>Mobile 375px + desktop 1280px tanpa overflow?</li>
+          <li>Copy final (no lorem ipsum)?</li>
+          <li>Tailwind tokens konsisten dengan project (tidak ada one-off hex)?</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="mt-12 border-t border-slate-200 bg-white">
+      <div class="mx-auto max-w-7xl px-4 py-4 text-xs text-slate-500">
+        Boilerplate Hi-Fi Prototype. DoD reference: <code>docs/process/artifact-rubric.md</code> · Workflow: <code>roadmap_arkadex.md</code> §Feature Workflow Convention
+      </div>
+    </footer>
+  </body>
+</html>
