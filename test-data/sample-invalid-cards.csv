@@ -1,0 +1,8 @@
+set_code,card_number,card_name,rarity,supertype,element,image_url
+UNKNOWN,001/190,Ghost Card,C,Pokemon,Grass,https://images.pokemontcg.io/sv4a/1.png
+SV4a,invalid_format,Bad Number,C,Pokemon,Grass,https://images.pokemontcg.io/sv4a/1.png
+SV4a,001/190,,C,Pokemon,Grass,https://images.pokemontcg.io/sv4a/1.png
+SV4a,001/190,Wrong Rarity,INVALID,Pokemon,Grass,https://images.pokemontcg.io/sv4a/1.png
+SV4a,001/190,Wrong Supertype,C,Ghost,Grass,https://images.pokemontcg.io/sv4a/1.png
+SV4a,001/190,Wrong Element,C,Pokemon,Krypton,https://images.pokemontcg.io/sv4a/1.png
+SV4a,001/190,Bad URL,C,Pokemon,Grass,http://insecure.url

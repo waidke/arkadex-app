@@ -1,0 +1,6 @@
+set_code,card_number,card_name,rarity,supertype,element,image_url
+SV4a,001/190,Bulbasaur,C,Pokemon,Grass,https://images.pokemontcg.io/sv4a/1.png
+SV4a,234/190,Pikachu,SAR,Pokemon,Lightning,https://images.pokemontcg.io/sv4a/234.png
+SV5K,001/071,Walking Wake ex,RR,Pokemon,Water,https://images.pokemontcg.io/sv5k/1.png
+SV5K,072/071,Iron Leaves ex,SR,Pokemon,Grass,https://images.pokemontcg.io/sv5k/72.png
+SV5K,080/071,Explorer's Guidance,SAR,Trainer,,https://images.pokemontcg.io/sv5k/80.png

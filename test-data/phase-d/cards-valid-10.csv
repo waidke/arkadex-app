@@ -1,0 +1,11 @@
+set_code,card_number,card_name,rarity,supertype,element,image_url
+SV1S,001/078,Card One,C,Pokémon,Grass,https://images.tcgdex.net/id/sv1/1/high.png
+SV1S,002/078,Card Two,U,Pokémon,Fire,https://images.tcgdex.net/id/sv1/2/high.png
+SV1S,003/078,Card Three,R,Pokémon,Water,https://images.tcgdex.net/id/sv1/3/high.png
+SV1S,004/078,Card Four,RR,Pokémon,Lightning,https://images.tcgdex.net/id/sv1/4/high.png
+SV1S,005/078,Card Five,C,Pokémon,Psychic,https://images.tcgdex.net/id/sv1/5/high.png
+SV1S,006/078,Card Six,U,Pokémon,Fighting,https://images.tcgdex.net/id/sv1/6/high.png
+SV1S,007/078,Card Seven,R,Pokémon,Darkness,https://images.tcgdex.net/id/sv1/7/high.png
+SV1S,008/078,Card Eight,C,Pokémon,Metal,https://images.tcgdex.net/id/sv1/8/high.png
+SV1S,009/078,Card Nine,U,Pokémon,Colorless,https://images.tcgdex.net/id/sv1/9/high.png
+SV1S,010/078,Card Ten,R,Pokémon,Dragon,https://images.tcgdex.net/id/sv1/10/high.png

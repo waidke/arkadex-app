@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArkaDex CMS — Bulk Ingestion Prototype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .gradient-btn {
+            background: linear-gradient(to right, #a855f7, #3b82f6);
+            transition: all 0.3s ease;
+        }
+        .gradient-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .gradient-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%);
+            filter: blur(60px);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden p-8">
+    <div class="blob top-[-10%] left-[-10%]"></div>
+    <div class="blob bottom-[-10%] right-[-10%]"></div>
+
+    <!-- Demo State Switcher -->
+    <div class="fixed top-4 right-4 z-[100] glass p-3 rounded-xl shadow-2xl">
+        <label class="block text-xs text-white/40 mb-1 uppercase font-bold">(Demo Only)</label>
+        <select onchange="window.location.hash = this.value" class="bg-black border border-white/20 rounded px-2 py-1 text-sm outline-none focus:border-purple-500">
+            <option value="#idle">1. Idle</option>
+            <option value="#file-selected">2. File Selected</option>
+            <option value="#dryrun-processing">3. Dry-Run Processing</option>
+            <option value="#preview-clean">4. Preview Clean</option>
+            <option value="#preview-with-errors">5. Preview with Errors</option>
+            <option value="#critical-error">6. Critical Error</option>
+            <option value="#modal-confirm">7. Modal Confirm</option>
+            <option value="#committing">8. Committing</option>
+            <option value="#success">9. Success</option>
+        </select>
+    </div>
+
+    <div class="max-w-7xl mx-auto space-y-8">
+        <!-- Header -->
+        <header class="flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight">Bulk Ingestion</h1>
+                <p class="text-white/60 mt-1">Populate ArkaDex database via CSV/JSON bulk upload.</p>
+            </div>
+            <div class="flex space-x-2">
+                <span class="px-3 py-1 glass rounded-full text-xs font-medium text-purple-400 border-purple-500/30">Admin Only</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column: Main Controls -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Mode Selector -->
+                <div data-testid="mode-selector" class="glass rounded-xl p-1 flex w-full">
+                    <button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-200 bg-gradient-to-r from-purple-500/30 to-blue-500/30 border border-purple-500/50 text-white">
+                        Import Cards
+                    </button>
+                    <button class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-200 text-white/40 hover:text-white">
+                        Import Sets
+                    </button>
+                </div>
+
+                <!-- Dropzone -->
+                <div data-testid="dropzone" id="dropzone-area" class="glass rounded-2xl border-2 border-dashed border-white/10 p-12 transition-all duration-200 flex flex-col items-center justify-center space-y-4">
+                    <div class="p-4 bg-white/5 rounded-full">
+                        <svg class="w-8 h-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                    </div>
+                    <div id="dropzone-content" class="text-center">
+                        <p class="font-medium">Click to upload or drag and drop</p>
+                        <p class="text-sm text-white/40 mt-1">CSV or JSON files (Max 5MB)</p>
+                    </div>
+                    <div id="file-info" class="hidden flex items-center space-x-3 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                        <span class="text-sm font-medium mono">cards_batch_01.csv</span>
+                        <button class="text-white/40 hover:text-red-400 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Bar & Dry-Run Button -->
+                <div class="flex items-center justify-between">
+                    <div class="flex space-x-6">
+                        <div class="text-center">
+                            <p class="text-[10px] uppercase tracking-wider text-white/40 font-bold">Total Rows</p>
+                            <p data-testid="stats-total" class="text-xl font-bold mono" id="total-count">0</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] uppercase tracking-wider text-green-400/60 font-bold">New</p>
+                            <p data-testid="stats-success" class="text-xl font-bold mono text-green-400" id="new-count">0</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] uppercase tracking-wider text-yellow-400/60 font-bold">Overwrite</p>
+                            <p class="text-xl font-bold mono text-yellow-400" id="overwrite-count">0</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-[10px] uppercase tracking-wider text-red-400/60 font-bold">Error</p>
+                            <p data-testid="stats-error" class="text-xl font-bold mono text-red-400" id="error-count">0</p>
+                        </div>
+                    </div>
+                    <button data-testid="btn-dry-run" id="btn-dry-run" class="gradient-btn px-6 py-3 rounded-xl font-bold shadow-lg shadow-purple-500/20 flex items-center space-x-2" disabled>
+                        <span>Run Dry-Run</span>
+                    </button>
+                </div>
+
+                <!-- Warning Banner -->
+                <div id="warning-banner" class="hidden bg-yellow-500/10 border border-yellow-500/20 rounded-xl px-4 py-3 flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-yellow-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <p class="text-sm text-yellow-200">
+                        <span id="warning-skipped-count">2</span> rows will be skipped. Only <span id="warning-valid-count">15</span> valid rows will be committed.
+                    </p>
+                </div>
+
+                <!-- Critical Error Banner -->
+                <div id="critical-banner" class="hidden bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-4 space-y-3">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-6 h-6 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <p class="font-bold text-red-400">Import cancelled: 1 set code(s) not found in database</p>
+                    </div>
+                    <ul class="text-sm text-red-300/80 list-disc list-inside ml-9">
+                        <li>Missing set: <span class="mono">SV5M</span> (Import this set first)</li>
+                    </ul>
+                    <div class="flex space-x-4 ml-9 mt-2">
+                        <button class="text-xs font-bold text-white hover:underline">Switch to Import Sets</button>
+                        <button class="text-xs font-bold text-white/60 hover:text-white hover:underline">Upload New File</button>
+                    </div>
+                </div>
+
+                <!-- Preview Table -->
+                <div id="preview-section" class="hidden space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold">Dry-Run Preview</h3>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-white/40">Showing all rows</span>
+                        </div>
+                    </div>
+                    <div data-testid="preview-table" class="glass rounded-2xl overflow-hidden">
+                        <div class="max-h-96 overflow-y-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="sticky top-0 bg-[#050505]/80 backdrop-blur-sm border-b border-white/10 z-10">
+                                    <tr class="text-white/40 text-[10px] uppercase tracking-wider font-bold">
+                                        <th class="px-4 py-3 w-28">Status</th>
+                                        <th class="px-4 py-3 w-12">Row</th>
+                                        <th class="px-4 py-3 w-24">Set</th>
+                                        <th class="px-4 py-3 w-28">Number</th>
+                                        <th class="px-4 py-3 flex-1">Name</th>
+                                        <th class="px-4 py-3 w-28">Rarity</th>
+                                        <th class="px-4 py-3 w-64">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-white/5">
+                                    <tr class="group hover:bg-white/[0.02]">
+                                        <td class="px-4 py-3">
+                                            <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-400 text-[10px] font-bold">NEW</span>
+                                        </td>
+                                        <td class="px-4 py-3 mono text-white/40">1</td>
+                                        <td class="px-4 py-3 mono">SV4a</td>
+                                        <td class="px-4 py-3 mono">001/190</td>
+                                        <td class="px-4 py-3 font-medium truncate max-w-[200px]">Bulbasaur</td>
+                                        <td class="px-4 py-3">C</td>
+                                        <td class="px-4 py-3 text-white/40 text-xs">—</td>
+                                    </tr>
+                                    <tr class="bg-yellow-500/5 group hover:bg-yellow-500/10">
+                                        <td class="px-4 py-3">
+                                            <span class="px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 text-[10px] font-bold uppercase tracking-tight">OVERWRITE</span>
+                                        </td>
+                                        <td class="px-4 py-3 mono text-white/40">2</td>
+                                        <td class="px-4 py-3 mono">SV4a</td>
+                                        <td class="px-4 py-3 mono">234/190</td>
+                                        <td class="px-4 py-3 font-medium truncate max-w-[200px]">Pikachu</td>
+                                        <td class="px-4 py-3">SAR</td>
+                                        <td class="px-4 py-3 text-yellow-400/80 text-xs italic">Will overwrite existing data</td>
+                                    </tr>
+                                    <tr class="bg-red-500/5 group hover:bg-red-500/10">
+                                        <td class="px-4 py-3">
+                                            <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-tight">ERROR</span>
+                                        </td>
+                                        <td class="px-4 py-3 mono text-white/40">3</td>
+                                        <td class="px-4 py-3 mono">SV4a</td>
+                                        <td class="px-4 py-3 mono">invalid</td>
+                                        <td class="px-4 py-3 font-medium truncate max-w-[200px]">Bad Number Example Card Name That is Very Long and Might Truncate</td>
+                                        <td class="px-4 py-3">C</td>
+                                        <td class="px-4 py-3 text-red-400 text-xs">Row 3: card_number — Invalid format (expected: "001/190")</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3">
+                                            <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-400 text-[10px] font-bold">NEW</span>
+                                        </td>
+                                        <td class="px-4 py-3 mono text-white/40">4</td>
+                                        <td class="px-4 py-3 mono">SV5K</td>
+                                        <td class="px-4 py-3 mono">001/071</td>
+                                        <td class="px-4 py-3 font-medium">Walking Wake ex</td>
+                                        <td class="px-4 py-3">RR</td>
+                                        <td class="px-4 py-3 text-white/40 text-xs">—</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button class="px-6 py-2 rounded-xl text-white/40 hover:text-white transition-colors">Discard</button>
+                        <button id="btn-open-modal" class="gradient-btn px-8 py-2 rounded-xl font-bold shadow-lg shadow-purple-500/20">Commit to Database</button>
+                    </div>
+                </div>
+
+                <!-- Log Stream -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-white/20">System Logs</h3>
+                    <div data-testid="log-stream" class="glass rounded-xl p-4 mono text-xs h-32 overflow-y-auto space-y-1 text-white/40">
+                        <p class="text-white/20">[2026-05-16 00:51:02] Application ready.</p>
+                        <div id="dynamic-logs">
+                            <!-- Logs will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Context & Help -->
+            <div class="space-y-6">
+                <!-- Requirements Panel -->
+                <div class="glass rounded-2xl p-6 space-y-6">
+                    <h3 class="font-bold flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Import Requirements</span>
+                    </h3>
+                    
+                    <div id="req-cards" class="space-y-4">
+                        <div class="space-y-2">
+                            <p class="text-[10px] uppercase font-bold text-white/30 tracking-wider">CSV Headers</p>
+                            <code class="block bg-black/40 p-2 rounded text-xs text-purple-300 mono leading-relaxed">
+                                set_code, card_number, card_name, rarity, supertype, element, image_url
+                            </code>
+                        </div>
+                        <ul class="text-xs space-y-3 text-white/60">
+                            <li class="flex items-start space-x-2">
+                                <span class="text-purple-500 font-bold">•</span>
+                                <span><strong>Set Must Exist:</strong> Set code must be imported via Sets mode before cards.</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-purple-500 font-bold">•</span>
+                                <span><strong>Enums:</strong> Rarity must follow official codes (C, U, R, RR, etc.).</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-purple-500 font-bold">•</span>
+                                <span><strong>Encoding:</strong> UTF-8 (No BOM) required.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <button class="w-full py-3 glass rounded-xl text-xs font-bold hover:bg-white/10 transition-colors flex items-center justify-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        <span>Download CSV Template</span>
+                    </button>
+                </div>
+
+                <!-- Stats Summary (Secondary) -->
+                <div class="glass rounded-2xl p-6 bg-gradient-to-br from-purple-500/5 to-transparent">
+                    <p class="text-[10px] uppercase font-bold text-white/30 tracking-wider mb-4">Milestone Status</p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-end">
+                            <span class="text-sm">M1 Foundations</span>
+                            <span class="text-xs mono">78%</span>
+                        </div>
+                        <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-500 w-[78%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Confirm Commit -->
+    <div data-testid="modal-confirm" id="modal-confirm" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl space-y-6">
+            <div class="flex flex-col items-center text-center space-y-3">
+                <div class="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+                <h2 class="text-xl font-bold">Confirm Commit</h2>
+                <p class="text-sm text-white/60">You are about to commit the following changes to the database:</p>
+            </div>
+
+            <div class="bg-white/5 border border-white/5 rounded-xl p-4 space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-white/40">New Cards</span>
+                    <span class="text-sm font-bold text-green-400 mono">✓ 12</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-white/40">Overwrites</span>
+                    <span class="text-sm font-bold text-yellow-400 mono">↻ 3</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-white/40">Skipped (Errors)</span>
+                    <span class="text-sm font-bold text-red-400 mono">✕ 2</span>
+                </div>
+            </div>
+
+            <p class="text-[10px] text-white/30 text-center italic uppercase tracking-widest">This action cannot be undone.</p>
+
+            <div class="flex space-x-3">
+                <button data-testid="btn-cancel" onclick="closeModal()" class="flex-1 py-3 rounded-xl glass text-sm font-bold hover:bg-white/10 transition-colors">Cancel</button>
+                <button data-testid="btn-confirm" id="btn-final-confirm" class="flex-1 py-3 rounded-xl gradient-btn text-sm font-bold shadow-lg shadow-purple-500/30">Commit →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Committing Overlay (Progress) -->
+    <div id="committing-overlay" class="hidden fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/40 backdrop-blur-md">
+        <div class="max-w-md w-full space-y-6 text-center">
+            <h2 class="text-2xl font-bold">Committing to Database...</h2>
+            <div class="space-y-3">
+                <div class="h-2 w-full bg-white/10 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-purple-500 to-blue-500 w-2/3 animate-[pulse_2s_infinite]"></div>
+                </div>
+                <p class="text-sm text-white/40 mono italic">Processing batch 2 of 5...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const states = {
+            'idle': {
+                fileInfo: false,
+                dropzoneContent: true,
+                stats: { total: 0, new: 0, overwrite: 0, error: 0 },
+                btnDryRun: false,
+                preview: false,
+                warning: false,
+                critical: false,
+                committing: false,
+                modal: false,
+                logs: []
+            },
+            'file-selected': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 0, new: 0, overwrite: 0, error: 0 },
+                btnDryRun: true,
+                preview: false,
+                warning: false,
+                critical: false,
+                committing: false,
+                modal: false,
+                logs: ['[00:51:10] File "cards_batch_01.csv" loaded.']
+            },
+            'dryrun-processing': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 17, new: 0, overwrite: 0, error: 0 },
+                btnDryRun: 'loading',
+                preview: false,
+                warning: false,
+                critical: false,
+                committing: false,
+                modal: false,
+                logs: ['[00:51:10] File "cards_batch_01.csv" loaded.', '[00:51:15] Parsing CSV...', '[00:51:16] Validating set codes...']
+            },
+            'preview-clean': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 12, new: 12, overwrite: 0, error: 0 },
+                btnDryRun: true,
+                preview: true,
+                warning: false,
+                critical: false,
+                committing: false,
+                modal: false,
+                logs: ['[00:51:10] File "cards_batch_01.csv" loaded.', '[00:51:15] Dry-run complete. 12 rows valid.']
+            },
+            'preview-with-errors': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 17, new: 12, overwrite: 3, error: 2 },
+                btnDryRun: true,
+                preview: true,
+                warning: true,
+                critical: false,
+                committing: false,
+                modal: false,
+                logs: ['[00:51:10] File "cards_batch_01.csv" loaded.', '[00:51:15] Dry-run complete. 2 errors found.']
+            },
+            'critical-error': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 5, new: 0, overwrite: 0, error: 5 },
+                btnDryRun: true,
+                preview: false,
+                warning: false,
+                critical: true,
+                committing: false,
+                modal: false,
+                logs: ['[00:51:10] Critical: Set SV5M not found.']
+            },
+            'modal-confirm': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 17, new: 12, overwrite: 3, error: 2 },
+                btnDryRun: true,
+                preview: true,
+                warning: true,
+                critical: false,
+                committing: false,
+                modal: true,
+                logs: ['[00:51:15] Dry-run complete.']
+            },
+            'committing': {
+                fileInfo: true,
+                dropzoneContent: false,
+                stats: { total: 17, new: 12, overwrite: 3, error: 2 },
+                btnDryRun: true,
+                preview: true,
+                warning: true,
+                critical: false,
+                committing: true,
+                modal: false,
+                logs: ['[00:51:20] Committing to DB...']
+            },
+            'success': {
+                fileInfo: false,
+                dropzoneContent: true,
+                stats: { total: 15, new: 12, overwrite: 3, error: 0 },
+                btnDryRun: false,
+                preview: false,
+                warning: false,
+                critical: false,
+                committing: false,
+                modal: false,
+                success: true,
+                logs: ['[00:51:25] Ingestion complete. 15 cards synchronized.']
+            }
+        };
+
+        function applyState() {
+            const hash = window.location.hash || '#idle';
+            const stateId = hash.substring(1);
+            const state = states[stateId] || states['idle'];
+
+            // UI Elements
+            document.getElementById('file-info').className = state.fileInfo ? 'flex items-center space-x-3 bg-white/5 px-4 py-2 rounded-lg border border-white/10' : 'hidden';
+            document.getElementById('dropzone-content').className = state.dropzoneContent ? 'text-center' : 'hidden';
+            
+            // Stats
+            document.getElementById('total-count').innerText = state.stats.total;
+            document.getElementById('new-count').innerText = state.stats.new;
+            document.getElementById('overwrite-count').innerText = state.stats.overwrite;
+            document.getElementById('error-count').innerText = state.stats.error;
+
+            // Buttons
+            const btnDry = document.getElementById('btn-dry-run');
+            if (state.btnDryRun === 'loading') {
+                btnDry.disabled = true;
+                btnDry.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Processing...</span>`;
+            } else {
+                btnDry.disabled = !state.btnDryRun;
+                btnDry.innerHTML = '<span>Run Dry-Run</span>';
+            }
+
+            // Sections
+            document.getElementById('preview-section').className = state.preview ? 'space-y-4' : 'hidden';
+            document.getElementById('warning-banner').className = state.warning ? 'bg-yellow-500/10 border border-yellow-500/20 rounded-xl px-4 py-3 flex items-center space-x-3' : 'hidden';
+            document.getElementById('critical-banner').className = state.critical ? 'bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-4 space-y-3' : 'hidden';
+            document.getElementById('modal-confirm').className = state.modal ? 'fixed inset-0 z-[110] flex items-center justify-center p-4' : 'hidden';
+            document.getElementById('committing-overlay').className = state.committing ? 'fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/40 backdrop-blur-md' : 'hidden';
+
+            // Logs
+            const logArea = document.getElementById('dynamic-logs');
+            logArea.innerHTML = '';
+            state.logs.forEach(log => {
+                const p = document.createElement('p');
+                p.innerText = log;
+                logArea.appendChild(p);
+            });
+
+            // Success State Tweaks
+            if (stateId === 'success') {
+                const p = document.createElement('p');
+                p.className = 'text-green-400 font-bold mt-2';
+                p.innerText = 'Ingestion complete.';
+                logArea.appendChild(p);
+                btnDry.innerHTML = '<span>Upload New File</span>';
+                btnDry.disabled = false;
+            }
+        }
+
+        function closeModal() {
+            window.location.hash = '#preview-with-errors';
+        }
+
+        window.addEventListener('hashchange', applyState);
+        window.addEventListener('load', applyState);
+
+        // Simple trigger for modal in demo
+        document.getElementById('btn-open-modal').onclick = () => window.location.hash = '#modal-confirm';
+        document.getElementById('btn-final-confirm').onclick = () => window.location.hash = '#committing';
+    </script>
+</body>
+</html>

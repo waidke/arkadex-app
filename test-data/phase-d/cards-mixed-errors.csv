@@ -1,0 +1,6 @@
+set_code,card_number,card_name,rarity,supertype,element,image_url
+SV1S,011/078,Valid Row 1,C,Pokémon,Grass,https://images.tcgdex.net/id/sv1/11/high.png
+SV1S,invalid,Invalid Card Number,C,Pokémon,Grass,https://images.tcgdex.net/id/sv1/12/high.png
+SV1S,012/078,,C,Pokémon,Grass,https://images.tcgdex.net/id/sv1/13/high.png
+SV1S,013/078,Valid Row 2,C,Pokémon,Grass,https://images.tcgdex.net/id/sv1/14/high.png
+SV1S,014/078,Valid Row 3,C,Pokémon,Grass,https://images.tcgdex.net/id/sv1/15/high.png

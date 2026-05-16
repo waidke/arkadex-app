@@ -55,7 +55,7 @@ graph TD
 ### T1.1 — Implement Supabase Schema & RLS Policies
 **Goal:** Establish secure multi-tenant data layer with encryption, RLS isolation, and audit trails.
 **Total Effort:** 4 days | **Personas:** PM, DevSecOps, SA+Dev, QA, Tech Writer
-**Status:** ✅ Completed
+**Status:** ✅ Completed + Addendum (Migration Pending)
 
 | Phase | Persona | Duration | Input | Output | DoD & Handoff |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -93,18 +93,18 @@ graph TD
 
 ### T1.3 — Lean CMS for Bulk Ingestion F-03 (Template A)
 **Goal:** Build admin-only UI for bulk-import IDN sets via CSV/JSON; validate + commit to cards/sets tables.
-**Total Effort:** 3.5 days | **Personas:** PM, UX Designer, SA+Dev, QA, Tech Writer
-**Depends on:** T1.1, T1.2 (Admin Auth)
+**Status:** ✅ Completed (2026-05-16)
 
 | Phase | Persona | Duration | Input | Output | DoD & Handoff |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **0. Scope Pre-Flight** | PM | 0.25d | PRD KR4, Sample CSV/JSON | Validation rules & KR4 criteria | Input format locked |
-| **A. Admin UI Hi-Fi** | UX Designer | 0.75d | Scope, Design System tokens | Prototype: Import states (Loading/Error/Preview) | UI states locked for Dev |
-| **B. Ingestion Logic** | SA+Dev | 1d | Prototype, Validation rules | Parser + Validation service | Backend ingestion logic ready |
-| **C. Admin Protection** | SA+Dev | 0.5d | Phase B, T1.2 middleware | Admin-only route + RLS bypass | UI connected to Ingestion API |
-| **D. Ingestion Audit** | QA | 0.5d | Live CMS, 500-card test set | Ingestion report, Happy path pass | KR4 accuracy verified |
-| **E. ADR-004 Doc** | Tech Writer | 0.25d | Ingestion strategy | `docs/adr/ADR-004-ingestion-strategy.md` | Owner CMS runbook ready |
-| **F. PM Acceptance** | PM | 0.25d | QA Audit report | T1.3 marked ✅ | KR4 readiness sign-off |
+| **✅ 0. Scope Pre-Flight** | PM | 0.25d | PRD KR4, Sample CSV/JSON | Validation rules & KR4 criteria | Input format locked |
+| **✅ A. Admin UI Hi-Fi** | UX Designer | 0.75d | Scope, Design System tokens | Prototype: Import states (Loading/Error/Preview) | UI states locked for Dev |
+| **✅ A+ Gate a Spec** | SA+Dev | — | Phase 0, Phase A | `docs/specs/F-03-lean-cms.md` | Feature spec Gate a locked |
+| **✅ B. Ingestion Logic** | SA+Dev | 1d | Prototype, Validation rules | Parser + Validation service | Backend ingestion logic ready |
+| **✅ C. Admin Protection** | SA+Dev | 0.5d | Phase B, T1.2 middleware | Admin-only route + RLS bypass | UI connected to Ingestion API |
+| **✅ D. Ingestion Audit** | QA | 0.5d | Live CMS, 500-card test set | Ingestion report, Happy path pass | KR4 accuracy verified |
+| **✅ E. ADR-004 Doc** | Tech Writer | 0.25d | Ingestion strategy | `docs/adr/ADR-004-ingestion-strategy.md` + `docs/ops/cms_ingestion_runbook.md` | ADR-004 Accepted; Runbook operational |
+| **✅ F. PM Acceptance** | PM | 0.25d | ADR-004 + Runbook reviewed | T1.3 marked ✅ — Phase E sign-off complete | KR4 conditional pass carry-forward to pre-M2 |
 
 **Start:** T+4d | **End:** T+7.5d (Parallel with T1.2)
 

@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
       .split(',')
       .map((e) => e.trim().toLowerCase())
       .filter(Boolean);
-    const isAuthorized = user && whitelist.includes((user.email ?? '').toLowerCase());
+    const isAuthorized = (user && whitelist.includes((user.email ?? '').toLowerCase()));
 
     if (!isAuthorized) {
       // Redirect to home if not authorized
