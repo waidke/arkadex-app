@@ -5,7 +5,7 @@
 | **Document ID** | TDD-ARK-001 |
 | **Status** | Approved for Development |
 | **Version** | 1.0.0 |
-| **Last Updated** | 2026-05-13 |
+| **Last Updated** | 2026-05-16 |
 | **Audiences** | Backend/Frontend Engineers, SRE, QA |
 
 ---
@@ -70,9 +70,12 @@ C4Container
 
 ---
 
-## 3. Architecture Decision Records (ADR)
+## 3. Key Design Decisions (Early-Stage)
 
-### ADR-001: Anonymous-First Data Storage
+> [!NOTE]
+> The two decisions below were captured during initial scoping before the formal ADR process was established. They are not numbered ADRs. The canonical ADR register is in **Section 8**. Full ADR files are linked there.
+
+### Design Decision A: Anonymous-First Data Storage
 **Context**: Target "Time-to-Log" is < 2 seconds. Privacy (UU PDP) requires zero PII collection for guests.
 
 | Strategy | Pros | Cons |
@@ -84,7 +87,7 @@ C4Container
 > [!TIP]
 > Use a "Soft CTA" to remind anonymous users to sync their data once their collection exceeds 50 cards to prevent data loss.
 
-### ADR-002: Client-Side Image Generation
+### Design Decision B: Client-Side Image Generation
 **Context**: "Flex Image Gen" requires 9:16 social assets.
 
 **Decision**: **`html-to-image` Library.**
@@ -101,15 +104,27 @@ C4Container
   - `getUser()` in middleware (verified JWT, not `getSession()`)
 - **Reference**: [ADR-003-auth-strategy.md](../adr/ADR-003-auth-strategy.md)
 
-### ADR-004: Lean CMS Implementation
-**Context**: Internal team needs to ingest bulk TCG data.
+### ADR-004: Ingestion Strategy
+**Context**: Internal team needs to ingest bulk TCG data (sets/cards) while maintaining data integrity (KR4).
+**Decision**: **Two-stage validation (Client + Server) with Mandatory Dry-Run.**
+- **Rationale**: Prevents data corruption; idempotent UPSERT allows safe retries.
+- **Reference**: [ADR-004-ingestion-strategy.md](adr/ADR-004-ingestion-strategy.md)
 
-**Decision**: **Next.js Admin UI (`/admin/bulk-upload`)**.
-- **Rationale**: Centralizes RBAC within the app and removes the need for data-entry staff to access the raw Supabase dashboard.
+### ADR-005: Cross-cutting Auth Umbrella
+**Context**: Need a cohesive security boundary across Middleware, Server Actions, and Database.
+**Decision**: **Multi-layered "Defense-in-Depth" Architecture.**
+- **Rationale**: Combines `src/middleware.ts` (navigation), `assertAdmin()` (execution), and RLS (data) into a single verifiable model.
+- **Reference**: [ADR-005-auth-umbrella.md](adr/ADR-005-auth-umbrella.md)
+
+### ADR-006: Deployment & Environment Strategy
+**Context**: Need stable hosting and secret management for M1 -> M2 transition.
+**Decision**: **Vercel-Managed Infrastructure with Strict Variable Scoping.**
+- **Rationale**: Automated CI/CD with Preview Deploys ensures production stability; encrypted env vars protect sensitive keys.
+- **Reference**: [ADR-006-deployment.md](adr/ADR-006-deployment.md)
 
 ---
 
-## 4. Database Schema
+## 4. Data Model
 
 The schema optimizes for the **One Card -> Many Users** relationship common in TCG binders.
 
@@ -206,3 +221,45 @@ Optimistic updates provide immediate feedback.
 
 > [!CAUTION]
 > Ensure all Supabase client keys in the frontend are **Publishable Keys**; never expose Service Role keys in client-side code.
+
+---
+
+## 8. Architecture Decision Records (ADR Index)
+
+| ADR | Title | Status | Date | Scope |
+| :--- | :--- | :--- | :--- | :--- |
+| [ADR-001](adr/ADR-001-supabase-schema.md) | Supabase Database Schema Design | Accepted | 2026-05-15 | T1.1 |
+| [ADR-002](adr/ADR-002-supabase-rls-strategy.md) | Row Level Security Strategy | Accepted | 2026-05-15 | T1.1 |
+| [ADR-003](adr/ADR-003-auth-strategy.md) | Authentication & Progressive Gating | Accepted | 2026-05-15 | T1.2 |
+| [ADR-004](adr/ADR-004-ingestion-strategy.md) | Bulk Data Ingestion Strategy | Accepted | 2026-05-16 | T1.3 |
+| [ADR-005](adr/ADR-005-auth-umbrella.md) | Cross-cutting Auth Umbrella | Accepted | 2026-05-16 | T1.1–T1.3 |
+| [ADR-006](adr/ADR-006-deployment.md) | Deployment & Environment Strategy | Accepted | 2026-05-16 | T1.4 |
+
+---
+
+## 9. PM Sign-Off — T1.5 Phase A (M1 Foundations Lock)
+
+**Signed off by:** PM
+**Date:** 2026-05-16
+**Task:** T1.5 Phase A — Verify & Lock All ADRs
+
+All six ADRs (ADR-001 through ADR-006) have been reviewed against the T1.5 Phase A criteria: metadata completeness, unambiguous decision statements, positive and negative consequences, cross-references, English language, and cross-ADR consistency.
+
+**Review results:**
+
+| ADR | Result | Notes |
+| :--- | :--- | :--- |
+| ADR-001 — Supabase Schema Design | PASS | Metadata complete; decision explicit; consequences documented; cross-ref to ADR-002 present. |
+| ADR-002 — RLS Strategy | PASS | Metadata complete; three-tier RLS strategy unambiguous; consequences documented; cross-ref to ADR-001 and audit report present. |
+| ADR-003 — Auth & Progressive Gating | PASS | Metadata complete; 8 sub-decisions documented with full rationale; consequences with trade-offs present; cross-references to specs, audits, and key files complete. |
+| ADR-004 — Bulk Ingestion Strategy | CORRECTED | Two lines contained inaccurate references to a non-existent `is_admin = true` DB field, contradicting ADR-003 §5 and ADR-005 §3. Corrected: (1) Section 1.2 database bullet updated to describe actual `service_role` key mechanism; (2) Section 2.4.2 removed the `is_admin = true` assertion bullet. No implementation change — documentation corrected to match deployed design. Correction noted in ADR-004 §5. |
+| ADR-005 — Auth Umbrella | PASS | Metadata complete; integrates ADR-001–004 into a cohesive multi-layer security model; consequences documented; cross-references complete. |
+| ADR-006 — Deployment Strategy | PASS | Metadata complete; decision explicit with 5 sub-decisions; consequences documented; cross-references complete. |
+
+**TDD internal consistency correction:**
+Section 3 of this document previously contained two inline entries labelled "ADR-001: Anonymous-First Data Storage" and "ADR-002: Client-Side Image Generation," which conflicted with the canonical ADR numbering in Section 8 and in the ADR files on disk. These entries have been relabelled "Design Decision A" and "Design Decision B" respectively. Section 8 remains the single authoritative ADR register.
+
+**Conditional pass carry-forward:**
+The two conditional-pass items from ADR-004 §3.2 (KR4 Manual Audit and Security/DI/PERF Gate e testing) remain open pre-M2 gates. They do not block M1 closure — they were accepted as carry-forwards during T1.3 Phase E sign-off and are tracked in ADR-004 §5 and `docs/ops/cms_ingestion_runbook.md` sections 6–7.
+
+**M1 Foundations status:** All 5 tasks complete. ADRs locked. Ready for M2 — Content kick-off.

@@ -13,9 +13,9 @@
 > **Current Focus**
 > - **Active Milestone**: M1 — Foundations
 > - **Current Phase**: Phase 1 — Personal Alpha
-> - **Phase Progress**: 100% (T1.1, T1.2, T1.3, T1.4 COMPLETED ✅; T1.5 next)
+> - **Phase Progress**: 100% (M1-Foundations COMPLETE ✅)
 > - **Blockers**: None
-> - **Next Action**: T1.5 — TDD Index & Cross-cutting ADRs Lock (Tech Writer + PM)
+> - **Next Action**: M2 — Content (Bulk Data Seeding)
 > - **Last Updated**: 2026-05-16
 
 ## Status Legend
@@ -23,7 +23,7 @@
 - **T1.2: Google OAuth & Gating** — 🟢 COMPLETED
 - **T1.3: Lean CMS for Bulk Ingestion** — 🟢 COMPLETED (Phase E sign-off 2026-05-16)
 - **T1.4: Vercel Deployment** — 🟢 COMPLETED
-- **T1.5: TDD Index & ADR Lock** — ⚪ NOT STARTED
+- **T1.5: TDD Index & ADR Lock** — 🟢 COMPLETED
 - ⚪ **Not Started**: Task is in the backlog.
 - 🟡 **In Progress**: Actively being worked on.
 - 🟢 **Completed**: Done and verified.
@@ -91,7 +91,7 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 | **T1.2** | Core | Setup Google OAuth & Progressive Gating | 🟢 |
 | **T1.3** | Content | Build Lean CMS for bulk ingestion (F-03) | 🟢 |
 | **T1.4** | DevOps | Configure Vercel Deployment & Env Secrets | 🟢 |
-| **T1.5** | Quality | TDD Index & Cross-cutting ADRs Lock | ⚪ |
+| **T1.5** | Quality | TDD Index & Cross-cutting ADRs Lock | 🟢 |
 
 **Estimated: 11–14 Days** (Refined with persona overhead)
 
@@ -188,7 +188,7 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 
 | Phase | Milestone | Status | Effort | Progress |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1: Personal Alpha** | M1 Foundations | 🟡 | 11–14 Days | 4 / 5 tasks |
+| **Phase 1: Personal Alpha** | M1 Foundations | 🟢 | 11–14 Days | 5 / 5 tasks |
 | | M2 Content | ⚪ | 6–8 Days | 0 / 4 tasks |
 | | M3 Utility | ⚪ | 9–12 Days | 0 / 3 tasks |
 | **Phase 2: Public Beta** | M4 Social Engine | ⚪ | 10–13 Days | 0 / 3 tasks |
@@ -253,14 +253,33 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 ---
 
 ## 9. Cross-References
-- **PRD-ARK-001**: Functional requirements and OKRs.
-- **TDD-ARK-001**: Technical architecture and ADRs.
-- **`docs/breakdowns/M1-foundations.md`**: Phase-by-phase persona dispatch for M1 tasks.
-- **`docs/breakdowns/M2-content.md`**: Phase-by-phase persona dispatch for M2 tasks.
-- **`docs/breakdowns/M3-utility.md`**: Phase-by-phase persona dispatch for M3 tasks.
-- **`docs/breakdowns/M4-social-engine.md`**: Phase-by-phase persona dispatch for M4 tasks.
-- **`docs/breakdowns/M5-polish.md`**: Phase-by-phase persona dispatch for M5 tasks.
-- **`docs/breakdowns/M6-launch.md`**: Phase-by-phase persona dispatch for M6 tasks.
-- **`docs/process/artifact-rubric.md`**: DoD per artifact (Spec/TDD/Hi-Fi/Test), trigger matrix, stop-iterating signals, fail-safe recovery, 1-page cheat sheet.
-- **`docs/specs/_template.md`**: Boilerplate per-feature Spec + TDD.
-- **`prototypes/_template/index.html`**: Boilerplate Hi-Fi prototype dengan semua UI states + `data-testid`.
+
+### Architecture Decision Records
+- [ADR-001: Supabase Schema](adr/ADR-001-supabase-schema.md) — T1.1
+- [ADR-002: Supabase RLS Strategy](adr/ADR-002-supabase-rls-strategy.md) — T1.1
+- [ADR-003: Auth Strategy](adr/ADR-003-auth-strategy.md) — T1.2
+- [ADR-004: Ingestion Strategy](adr/ADR-004-ingestion-strategy.md) — T1.3
+- [ADR-005: Auth Umbrella](adr/ADR-005-auth-umbrella.md) — T1.1–T1.3
+- [ADR-006: Deployment](adr/ADR-006-deployment.md) — T1.4
+
+### Planning & Architecture Documents
+- **PRD-ARK-001**: Functional requirements and OKRs. (File pending)
+- [TDD-ARK-001: Technical Architecture](tdd_arkadex.md) — Master TDD index and system design.
+
+### Milestone Breakdowns
+- [M1 Foundations](breakdowns/M1-foundations.md) — Core infra and CMS baseline.
+- [M2 Content](breakdowns/M2-content.md) — Bulk ingestion and data audit.
+- [M3 Utility](breakdowns/M3-utility.md) — Digital Binder and Quick-Add UI.
+- [M4 Social Engine](breakdowns/M4-social-engine.md) — Export flows and social features.
+- [M5 Polish](breakdowns/M5-polish.md) — Mobile UX and price reference.
+- [M6 Launch](breakdowns/M6-launch.md) — Production cutover and UAT.
+
+### Process & Templates
+- [Artifact Rubric](process/artifact-rubric.md) — DoD per artifact (Spec/TDD/Hi-Fi/Test).
+- [Feature Spec Template](specs/_template.md) — Boilerplate for Gate a deliverables.
+- [Hi-Fi Prototype Template](../prototypes/_template/index.html) — Boilerplate with UI states.
+
+### Operational Runbooks & Audit Reports
+- [Deployment Runbook](ops/deployment_runbook.md) — Vercel release and rollback procedure.
+- [CMS Ingestion Runbook](ops/cms_ingestion_runbook.md) — Manual data seeding workflow.
+- [RLS Isolation Report](audits/rls_isolation_report.md) — Security audit of the data layer.

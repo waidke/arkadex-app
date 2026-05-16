@@ -132,8 +132,33 @@ graph TD
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **0. Scope & Execute** | Tech Writer | ADR-001..004 | ADR-005 (Auth Umbrella), ADR-006 (Deployment) | `docs/tdd_arkadex.md` index updated |
-| **A. Verify & Lock** | PM | `tdd_arkadex.md` | Final review of all TDD artifacts | ADRs status: Approved/Locked |
-| **B. Doc Update** | Tech Writer | Roadmap file | Updated Roadmap §9 Cross-References | Roadmap links resolve correctly |
+| **✅ 0. Scope & Execute** | Tech Writer | ADR-001..004 | ADR-005 (Auth Umbrella), ADR-006 (Deployment) | `docs/tdd_arkadex.md` index updated |
+| **✅ A. Verify & Lock** | PM | `tdd_arkadex.md` | Final review of all TDD artifacts | ADRs status: Accepted/Locked |
+| **✅ B. Doc Update** | Tech Writer | Roadmap file | Updated Roadmap §9 Cross-References | Roadmap links resolve correctly |
 
 **Start:** T+7.5d | **End:** T+8.5d
+
+---
+
+## 4. T1.5 Phase A — PM Sign-Off
+
+**Signed off by:** PM
+**Date:** 2026-05-16
+
+Phase A review complete. All six ADRs reviewed against the DoD criteria. Summary of findings:
+
+**ADR-001 (Supabase Schema):** PASS — Metadata complete, decision unambiguous, consequences documented, cross-reference to ADR-002 present.
+
+**ADR-002 (RLS Strategy):** PASS — Three-tier RLS model explicitly documented, positive and negative consequences present, cross-references to ADR-001 and audit report present.
+
+**ADR-003 (Auth & Progressive Gating):** PASS — Eight sub-decisions documented with rationale, consequences with trade-offs complete, cross-references to all relevant specs, audits, and implementation files present.
+
+**ADR-004 (Ingestion Strategy):** CORRECTED — Two lines contained inaccurate references to a non-existent `is_admin = true` database field, directly contradicting ADR-003 §5 and ADR-005 §3 (which are the authoritative sources for admin access control). Decision: correct the document, not add a "known discrepancy" note. Rationale: an ADR register that is being locked cannot carry an explicit internal contradiction as accepted state — the correction removes a false assertion about the implementation with no architectural change required. Two edits made: (1) Section 1.2 database bullet corrected to describe the actual `service_role` key mechanism; (2) Section 2.4.2 assertAdmin checklist — removed the `is_admin = true` database assertion. Correction footnoted in ADR-004 §5. Conditional-pass carry-forwards (KR4 audit, SEC/DI/PERF) remain open pre-M2 gates and do not affect M1 closure.
+
+**ADR-005 (Auth Umbrella):** PASS — Multi-layer security model coherent with ADR-001 through ADR-004, consequences documented, cross-references complete.
+
+**ADR-006 (Deployment):** PASS — Five sub-decisions explicit, positive and negative consequences documented, cross-references to auth and database ADRs present.
+
+**TDD internal consistency:** Section 3 of `tdd_arkadex.md` previously labelled two inline design decisions as "ADR-001" and "ADR-002," conflicting with the canonical ADR register in Section 8 and the ADR files on disk. Corrected: those two entries are now labelled "Design Decision A" and "Design Decision B." Section 8 is the single authoritative ADR register.
+
+**M1 Foundations:** All 5 tasks complete. ADR register locked. Conditional-pass items carried forward to pre-M2. M1 closed.

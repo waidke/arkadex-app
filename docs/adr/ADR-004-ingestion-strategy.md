@@ -24,11 +24,13 @@ This constraint ensures that every bulk operation maintains TCG data integrity, 
 
 ### 1.2 Admin-Only Surface with Defense-in-Depth
 
-The bulk upload feature is only accessible by admins based on Role-Level Security (RLS) in Supabase:
+The bulk upload feature is only accessible by admins. Access control is enforced in layers:
 - Frontend: Admin check via `assertAdmin()` in each Server Action
-- Database: RLS policy `is_admin = true` on `sets` and `cards` tables
+- Database: Write operations execute via the `service_role` key inside the Server Action, bypassing RLS. The `anon` and `authenticated` roles have no write access to `sets` or `cards` tables.
 - Service Role Key: Used only in backend Server Action, never exposed to the browser
 - Implication: No direct Supabase client library calls in the upload feature; all write paths go through `src/app/admin/bulk-upload/actions.ts`
+
+> **Note (T1.5 Phase A correction):** The original draft stated "RLS policy `is_admin = true` on `sets` and `cards` tables." This was inaccurate. Admin status is not stored in the database. See ADR-003 §5 and ADR-005 §3 for the authoritative admin access control design. The actual database-layer protection is that the `anon`/`authenticated` Supabase roles have no INSERT/UPDATE/DELETE policies on master data tables; only the `service_role` key (held exclusively by the Server Action) can write.
 
 ### 1.3 IDN TCG Data Characteristics & CSV Quirks
 
@@ -210,11 +212,12 @@ export async function commitIngestion(payload: CommitPayload) {
 
 Each Server Action has an assertion that validates:
 - User is logged in (session valid)
-- User has `is_admin = true` in the database
-- User email is in `ADMIN_EMAIL_WHITELIST` env var
+- User email is in `ADMIN_EMAIL_WHITELIST` env var (sole source of truth for admin status)
 - Request signature is valid (Next.js built-in protection)
 
 If the assertion fails, the function throws an error (no silent failure) and the frontend receives 401/403.
+
+> **Note (T1.5 Phase A correction):** The original draft included "User has `is_admin = true` in the database" as a separate assertion bullet. This was inaccurate and has been removed. Admin status is determined exclusively by `ADMIN_EMAIL_WHITELIST`. No `is_admin` field exists in the database. See ADR-003 §5 and ADR-005 §3.
 
 **2.4.3 Service Role Key Security**
 
@@ -373,7 +376,7 @@ Trade-off: Slightly more verbose, but operational clarity is higher.
 
 2. **Defense-in-Depth Architecture**
    - assertAdmin() at each Server Action layer
-   - RLS policy at the database layer
+   - RLS policy at the database layer (write-deny for non-service_role)
    - Service Role Key is not exposed to the frontend
    - Multi-layer security prevents privilege escalation
 
@@ -459,6 +462,9 @@ ADR-004 reviewed against Phase E checklist. All 7 architectural decisions docume
 **Conditional Pass Gates (carry-forward to T1.5 / pre-M2):**
 - KR4 Manual Audit: Pending — execute per Runbook section 6 before M2 Content kick-off
 - Security/DI/PERF Testing: Pending — recommended pre-M2 Content
+
+**T1.5 Phase A — PM Lock Note (2026-05-16):**
+Two inaccuracies corrected during T1.5 Phase A review to align with the authoritative admin access control design in ADR-003 §5 and ADR-005 §3: (1) Section 1.2 database bullet updated — admin write access is gated by `service_role` key in the Server Action, not by an `is_admin` DB column; (2) Section 2.4.2 assertAdmin checklist — removed the `is_admin = true` database assertion bullet, which never existed in the implementation. The `ADMIN_EMAIL_WHITELIST` env var remains the sole source of truth for admin status. No implementation change; documentation corrected to match the implemented design.
 
 ---
 
