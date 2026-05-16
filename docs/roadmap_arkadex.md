@@ -11,11 +11,11 @@
 
 > [!IMPORTANT]
 > **Current Focus**
-> - **Active Milestone**: M1 — Foundations
+> - **Active Milestone**: M2 — Content
 > - **Current Phase**: Phase 1 — Personal Alpha
-> - **Phase Progress**: 100% (M1-Foundations COMPLETE ✅)
+> - **Phase Progress**: T2.1 done; T2.2 not started
 > - **Blockers**: None
-> - **Next Action**: M2 — Content (Bulk Data Seeding)
+> - **Next Action**: T2.2 — KR4 Manual Audit (30 cards/set, rarity verification)
 > - **Last Updated**: 2026-05-16
 
 ## Status Legend
@@ -106,7 +106,7 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 
 | Task ID | Track | Description | Status |
 | :--- | :--- | :--- | :--- |
-| **T2.1** | Content | Bulk upload 2 recent IDN expansions | ⚪ |
+| **T2.1** | Content | Bulk upload 2 recent IDN expansions | 🟢 |
 | **T2.2** | Quality | Manual data audit (KR4 validation) | ⚪ |
 | **T2.3** | Content | Setup optimized image storage/CDN | ⚪ |
 | **T2.4** | Quality | Regression test for ingestion workflow | ⚪ |
@@ -189,7 +189,7 @@ ArkaDex follows a **Multi-Track Solo Development** pattern, transitioning from a
 | Phase | Milestone | Status | Effort | Progress |
 | :--- | :--- | :--- | :--- | :--- |
 | **Phase 1: Personal Alpha** | M1 Foundations | 🟢 | 11–14 Days | 5 / 5 tasks |
-| | M2 Content | ⚪ | 6–8 Days | 0 / 4 tasks |
+| | M2 Content | 🟡 | 6–8 Days | 1 / 4 tasks |
 | | M3 Utility | ⚪ | 9–12 Days | 0 / 3 tasks |
 | **Phase 2: Public Beta** | M4 Social Engine | ⚪ | 10–13 Days | 0 / 3 tasks |
 | | M5 Polish | ⚪ | 7–10 Days | 0 / 3 tasks |

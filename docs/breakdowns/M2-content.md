@@ -51,9 +51,9 @@ graph TD
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Scope** | PM | PRD KR1, Public sources | Set selection (e.g. SV6, SV7), CSV templates | 2 target sets identified & source data acquired |
-| **2. Execute** | SA+Dev | Templates, T1.3 CMS | Upload logs, Commit hash, DB records | Data visible in DB; image refs mapped |
-| **3. Verify+Doc** | QA, Tech Writer | DB records, CMS logs | 10% spot-check report, M2 Ingestion Log | Spot-check passed; log entry added to runbook |
+| **✅ 0. Scope** | PM | PRD KR1, Public sources | Set selection (e.g. SV9s, SV8s), CSV templates | 2 target sets identified & source data acquired |
+| **✅ A. Execute** | SA+Dev | Templates, T1.3 CMS | Upload logs, Commit hash, DB records | Data visible in DB; image refs mapped |
+| **✅ B. Verify+Doc** | QA | DB records, CMS logs | 10% spot-check report, M2 Ingestion Log | Spot-check passed; log entry added to runbook |
 
 **Start:** T+0 | **End:** T+2d
 
@@ -66,9 +66,9 @@ graph TD
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Scope** | PM, QA | KR4 criteria | Operationalization: 30 cards/set sample, Error categories | Audit strategy defined & sampling locked |
-| **2. Execute** | QA | Sample list, Ground truth | Error log, Category distribution | Audit complete; all 60 cards verified |
-| **3. Verify+Doc** | PM, Tech Writer | Error log | `docs/audits/kr4_audit_M2.md`, Sign-off | Final report archived; Error rate ≤ Threshold |
+| **0. Scope** | PM | KR4 criteria | Operationalization: 30 cards/set sample, Error categories | Audit strategy defined & sampling locked |
+| **A. Execute** | QA | Sample list, Ground truth | Error log, Category distribution | Audit complete; all 60 cards verified |
+| **B. Verify+Doc** | Tech Writer | Error log | `docs/audits/kr4_audit_M2.md`, Sign-off | Final report archived; Error rate ≤ Threshold |
 
 **Start:** T+2d | **End:** T+3d
 
@@ -81,9 +81,9 @@ graph TD
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Scope+Execute** | DevSecOps | Provider access | Bucket/CDN configured, CORS, Signed URLs | Storage path convention locked (/cards/{set}/{id}) |
-| **2. Integration** | SA+Dev | CDN config, T2.1 records | `<Image>` component, Backfilled URLs | Optimized images loading on staging |
-| **3. Verify+Doc** | QA, Tech Writer | Staging build | Lighthouse report (LCP < 2.5s), Updated runbook | Performance budget met; Ops docs updated |
+| **0. Scope+Execute** | DevSecOps | Provider access | Bucket/CDN configured, CORS, Signed URLs | Storage path convention locked (/cards/{set}/{id}) |
+| **A. Integration** | SA+Dev | CDN config, T2.1 records | `<Image>` component, Backfilled URLs | Optimized images loading on staging |
+| **B. Verify+Doc** | QA | Staging build | Lighthouse report (LCP < 2.5s), Updated runbook | Performance budget met; Ops docs updated |
 
 **Start:** T+0 | **End:** T+2d
 
@@ -96,8 +96,8 @@ graph TD
 
 | Phase | Persona | Input | Output | DoD |
 | :--- | :--- | :--- | :--- | :--- |
-| **1. Scope** | QA | ADR-004, KR4 categories | Regression scope (Happy path + 3 edge cases) | Test requirements locked |
-| **2. Execute** | QA, SA+Dev | Playwright env | `tests/e2e/ingestion_regression.spec.ts` | Tests passing in CI; No flakiness |
-| **3. Verify+Doc** | Tech Writer, PM | Test results | `docs/testing/ingestion_regression_plan.md` | Test plan archived; Linked as M3 merge-gate |
+| **0. Scope** | QA | ADR-004, KR4 categories | Regression scope (Happy path + 3 edge cases) | Test requirements locked |
+| **A. Execute** | QA | Playwright env | `tests/e2e/ingestion_regression.spec.ts` | Tests passing in CI; No flakiness |
+| **B. Verify+Doc** | Tech Writer | Test results | `docs/testing/ingestion_regression_plan.md` | Test plan archived; Linked as M3 merge-gate |
 
 **Start:** T+2d | **End:** T+4d

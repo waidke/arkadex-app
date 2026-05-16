@@ -1,0 +1,245 @@
+set_code,card_number,card_name,rarity,supertype,element,image_url
+SV8s,001,"Exeggcute",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/001/high.png
+SV8s,002,"Exeggcute",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/002/high.png
+SV8s,003,"Exeggutor",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/003/high.png
+SV8s,004,"Durant ex",RR,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/004/high.png
+SV8s,005,"Scatterbug",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/005/high.png
+SV8s,006,"Spewpa",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/006/high.png
+SV8s,007,"Vivillon",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/007/high.png
+SV8s,008,"Morelull",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/008/high.png
+SV8s,009,"Shiinotic",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/009/high.png
+SV8s,010,"Dhelmise",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/010/high.png
+SV8s,011,"Zarude",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/011/high.png
+SV8s,012,"Capsakid",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/012/high.png
+SV8s,013,"Rellor",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/013/high.png
+SV8s,014,"Rabsca",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/014/high.png
+SV8s,015,"Wo-Chien",C,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/015/high.png
+SV8s,016,"Vulpix",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/016/high.png
+SV8s,017,"Ninetales",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/017/high.png
+SV8s,018,"Paldean Tauros",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/018/high.png
+SV8s,019,"Ho-Oh",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/019/high.png
+SV8s,020,"Castform Wujud Matahari",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/020/high.png
+SV8s,021,"Victini",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/021/high.png
+SV8s,022,"Pansear",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/022/high.png
+SV8s,023,"Simisear",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/023/high.png
+SV8s,024,"Larvesta",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/024/high.png
+SV8s,025,"Volcarona",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/025/high.png
+SV8s,026,"Oricorio",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/026/high.png
+SV8s,027,"Sizzlipede",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/027/high.png
+SV8s,028,"Centiskorch",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/028/high.png
+SV8s,029,"Fuecoco",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/029/high.png
+SV8s,030,"Crocalor",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/030/high.png
+SV8s,031,"Skeledirge",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/031/high.png
+SV8s,032,"Charcadet",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/032/high.png
+SV8s,033,"Armarouge",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/033/high.png
+SV8s,034,"Ceruledge",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/034/high.png
+SV8s,035,"Scovillain ex",RR,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/035/high.png
+SV8s,036,"Gouging Fire",C,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/036/high.png
+SV8s,037,"Paldean Tauros",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/037/high.png
+SV8s,038,"Mantine",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/038/high.png
+SV8s,039,"Feebas",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/039/high.png
+SV8s,040,"Milotic ex",RR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/040/high.png
+SV8s,041,"Spheal",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/041/high.png
+SV8s,042,"Sealeo",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/042/high.png
+SV8s,043,"Walrein",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/043/high.png
+SV8s,044,"Shellos",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/044/high.png
+SV8s,045,"Cryogonal",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/045/high.png
+SV8s,046,"Kyurem Hitam ex",RR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/046/high.png
+SV8s,047,"Bruxish",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/047/high.png
+SV8s,048,"Quaxly",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/048/high.png
+SV8s,049,"Quaxwell",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/049/high.png
+SV8s,050,"Quaquaval",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/050/high.png
+SV8s,051,"Cetoddle",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/051/high.png
+SV8s,052,"Cetitan",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/052/high.png
+SV8s,053,"Iron Bundle",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/053/high.png
+SV8s,054,"Chien-Pao",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/054/high.png
+SV8s,055,"Pikachu ex",RR,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/055/high.png
+SV8s,056,"Magnemite",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/056/high.png
+SV8s,057,"Magneton",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/057/high.png
+SV8s,058,"Magnezone",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/058/high.png
+SV8s,059,"Zapdos",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/059/high.png
+SV8s,060,"Rotom",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/060/high.png
+SV8s,061,"Blitzle",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/061/high.png
+SV8s,062,"Zebstrika",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/062/high.png
+SV8s,063,"Stunfisk",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/063/high.png
+SV8s,064,"Tapu Koko",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/064/high.png
+SV8s,065,"Wattrel",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/065/high.png
+SV8s,066,"Kilowattrel",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/066/high.png
+SV8s,067,"Miraidon",C,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/067/high.png
+SV8s,068,"Togepi",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/068/high.png
+SV8s,069,"Togetic",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/069/high.png
+SV8s,070,"Togekiss",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/070/high.png
+SV8s,071,"Marill",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/071/high.png
+SV8s,072,"Azumarill",C,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/072/high.png
+SV8s,073,"Smoochum",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/073/high.png
+SV8s,074,"Latias ex",RR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/074/high.png
+SV8s,075,"Latios",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/075/high.png
+SV8s,076,"Uxie",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/076/high.png
+SV8s,077,"Mesprit",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/077/high.png
+SV8s,078,"Azelf",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/078/high.png
+SV8s,079,"Sigilyph",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/079/high.png
+SV8s,080,"Yamask",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/080/high.png
+SV8s,081,"Cofagrigus",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/081/high.png
+SV8s,082,"Espurr",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/082/high.png
+SV8s,083,"Meowstic",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/083/high.png
+SV8s,084,"Dedenne",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/084/high.png
+SV8s,085,"Xerneas",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/085/high.png
+SV8s,086,"Oricorio",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/086/high.png
+SV8s,087,"Sandygast",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/087/high.png
+SV8s,088,"Palossand ex",RR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/088/high.png
+SV8s,089,"Tapu Lele",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/089/high.png
+SV8s,090,"Indeedee",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/090/high.png
+SV8s,091,"Flittle",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/091/high.png
+SV8s,092,"Espathra",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/092/high.png
+SV8s,093,"Flutter Mane",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/093/high.png
+SV8s,094,"Gimmighoul",C,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/094/high.png
+SV8s,095,"Mankey",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/095/high.png
+SV8s,096,"Primeape",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/096/high.png
+SV8s,097,"Annihilape",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/097/high.png
+SV8s,098,"Paldean Tauros",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/098/high.png
+SV8s,099,"Phanpy",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/099/high.png
+SV8s,100,"Donphan",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/100/high.png
+SV8s,101,"Trapinch",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/101/high.png
+SV8s,102,"Vibrava",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/102/high.png
+SV8s,103,"Flygon ex",RR,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/103/high.png
+SV8s,104,"Gastrodon",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/104/high.png
+SV8s,105,"Drilbur",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/105/high.png
+SV8s,106,"Excadrill",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/106/high.png
+SV8s,107,"Landorus",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/107/high.png
+SV8s,108,"Passimian",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/108/high.png
+SV8s,109,"Clobbopus",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/109/high.png
+SV8s,110,"Grapploct",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/110/high.png
+SV8s,111,"Glimmet",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/111/high.png
+SV8s,112,"Glimmora",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/112/high.png
+SV8s,113,"Koraidon",C,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/113/high.png
+SV8s,114,"Deino",C,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/114/high.png
+SV8s,115,"Zweilous",C,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/115/high.png
+SV8s,116,"Hydreigon ex",RR,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/116/high.png
+SV8s,117,"Shroodle",C,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/117/high.png
+SV8s,118,"Grafaiai",C,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/118/high.png
+SV8s,119,"Pecharunt",C,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/119/high.png
+SV8s,120,"Alolan Diglett",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/120/high.png
+SV8s,121,"Alolan Dugtrio",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/121/high.png
+SV8s,122,"Skarmory",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/122/high.png
+SV8s,123,"Registeel",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/123/high.png
+SV8s,124,"Bronzor",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/124/high.png
+SV8s,125,"Bronzong",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/125/high.png
+SV8s,126,"Klefki",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/126/high.png
+SV8s,127,"Duraludon",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/127/high.png
+SV8s,128,"Archaludon ex",RR,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/128/high.png
+SV8s,129,"Gholdengo",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/129/high.png
+SV8s,130,"Iron Crown",C,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/130/high.png
+SV8s,131,"Alolan Exeggutor ex",RR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/131/high.png
+SV8s,132,"Altaria",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/132/high.png
+SV8s,133,"Dialga",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/133/high.png
+SV8s,134,"Palkia",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/134/high.png
+SV8s,135,"Turtonator",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/135/high.png
+SV8s,136,"Applin",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/136/high.png
+SV8s,137,"Flapple",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/137/high.png
+SV8s,138,"Appletun",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/138/high.png
+SV8s,139,"Eternatus",C,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/139/high.png
+SV8s,140,"Tatsugiri ex",RR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/140/high.png
+SV8s,141,"Slakoth",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/141/high.png
+SV8s,142,"Vigoroth",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/142/high.png
+SV8s,143,"Slaking ex",RR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/143/high.png
+SV8s,144,"Swablu",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/144/high.png
+SV8s,145,"Zangoose",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/145/high.png
+SV8s,146,"Kecleon",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/146/high.png
+SV8s,147,"Bouffalant",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/147/high.png
+SV8s,148,"Rufflet",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/148/high.png
+SV8s,149,"Braviary",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/149/high.png
+SV8s,150,"Helioptile",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/150/high.png
+SV8s,151,"Heliolisk",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/151/high.png
+SV8s,152,"Oranguru",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/152/high.png
+SV8s,153,"Tandemaus",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/153/high.png
+SV8s,154,"Maushold",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/154/high.png
+SV8s,155,"Cyclizar ex",RR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/155/high.png
+SV8s,156,"Terapagos",C,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/156/high.png
+SV8s,157,"Transfer Energi PRO",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/157/high.png
+SV8s,158,"Bel Penyelamat",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/158/high.png
+SV8s,159,"Set Deduksi",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/159/high.png
+SV8s,160,"Scramble Switch",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/160/high.png
+SV8s,161,"Bola Dusk",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/161/high.png
+SV8s,162,"Mainan Santai",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/162/high.png
+SV8s,163,"Surat Penghambat",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/163/high.png
+SV8s,164,"Miracle Intercom",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/164/high.png
+SV8s,165,"Megaton Blower",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/165/high.png
+SV8s,166,"Obat Rahasia Naga",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/166/high.png
+SV8s,167,"Beri Passho",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/167/high.png
+SV8s,168,"Counter Gain",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/168/high.png
+SV8s,169,"Amulet Harapan",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/169/high.png
+SV8s,170,"Beri Colbur",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/170/high.png
+SV8s,171,"Beri Babiri",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/171/high.png
+SV8s,172,"MJ Fluorite",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/172/high.png
+SV8s,173,"Levigato",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/173/high.png
+SV8s,174,"Peselancar",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/174/high.png
+SV8s,175,"Cyano",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/175/high.png
+SV8s,176,"Kecerdikan Clemont",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/176/high.png
+SV8s,177,"Drasna",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/177/high.png
+SV8s,178,"Tatapan Jasmine",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/178/high.png
+SV8s,179,"Daya Tarik Lisia",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/179/high.png
+SV8s,180,"Stadium Gempar",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/180/high.png
+SV8s,181,"Gunung Gravitasi",C,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/181/high.png
+SV8s,182,"Energi Kaya",C,Energy,,https://assets.tcgdex.net/id/SV/SV8s/182/high.png
+SV8s,183,"Exeggcute",SR,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/183/high.png
+SV8s,184,"Vivillon",SR,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/184/high.png
+SV8s,185,"Shiinotic",SR,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/185/high.png
+SV8s,186,"Castform Wujud Matahari",SR,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/186/high.png
+SV8s,187,"Larvesta",SR,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/187/high.png
+SV8s,188,"Ceruledge",SR,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/188/high.png
+SV8s,189,"Feebas",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/189/high.png
+SV8s,190,"Spheal",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/190/high.png
+SV8s,191,"Bruxish",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/191/high.png
+SV8s,192,"Cetitan",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/192/high.png
+SV8s,193,"Magneton",SR,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/193/high.png
+SV8s,194,"Stunfisk",SR,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/194/high.png
+SV8s,195,"Latios",SR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/195/high.png
+SV8s,196,"Mesprit",SR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/196/high.png
+SV8s,197,"Phanpy",SR,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/197/high.png
+SV8s,198,"Vibrava",SR,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/198/high.png
+SV8s,199,"Clobbopus",SR,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/199/high.png
+SV8s,200,"Alolan Dugtrio",SR,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/200/high.png
+SV8s,201,"Skarmory",SR,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/201/high.png
+SV8s,202,"Flapple",SR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/202/high.png
+SV8s,203,"Appletun",SR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/203/high.png
+SV8s,204,"Slakoth",SR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/204/high.png
+SV8s,205,"Kecleon",SR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/205/high.png
+SV8s,206,"Braviary",SR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/206/high.png
+SV8s,207,"Durant ex",SR,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/207/high.png
+SV8s,208,"Scovillain ex",SR,Pokemon,Fire,https://assets.tcgdex.net/id/SV/SV8s/208/high.png
+SV8s,209,"Milotic ex",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/209/high.png
+SV8s,210,"Kyurem Hitam ex",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/210/high.png
+SV8s,211,"Pikachu ex",SR,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/211/high.png
+SV8s,212,"Latias ex",SR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/212/high.png
+SV8s,213,"Palossand ex",SR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/213/high.png
+SV8s,214,"Flygon ex",SR,Pokemon,Fighting,https://assets.tcgdex.net/id/SV/SV8s/214/high.png
+SV8s,215,"Hydreigon ex",SR,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/215/high.png
+SV8s,216,"Archaludon ex",SR,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/216/high.png
+SV8s,217,"Alolan Exeggutor ex",SR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/217/high.png
+SV8s,218,"Tatsugiri ex",SR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/218/high.png
+SV8s,219,"Slaking ex",SR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/219/high.png
+SV8s,220,"Cyclizar ex",SR,Pokemon,Colorless,https://assets.tcgdex.net/id/SV/SV8s/220/high.png
+SV8s,221,"Levigato",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/221/high.png
+SV8s,222,"Peselancar",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/222/high.png
+SV8s,223,"Cyano",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/223/high.png
+SV8s,224,"Kecerdikan Clemont",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/224/high.png
+SV8s,225,"Drasna",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/225/high.png
+SV8s,226,"Tatapan Jasmine",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/226/high.png
+SV8s,227,"Daya Tarik Lisia",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/227/high.png
+SV8s,228,"Durant ex",SR,Pokemon,Grass,https://assets.tcgdex.net/id/SV/SV8s/228/high.png
+SV8s,229,"Milotic ex",SR,Pokemon,Water,https://assets.tcgdex.net/id/SV/SV8s/229/high.png
+SV8s,230,"Pikachu ex",SR,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/230/high.png
+SV8s,231,"Latias ex",SR,Pokemon,Psychic,https://assets.tcgdex.net/id/SV/SV8s/231/high.png
+SV8s,232,"Hydreigon ex",SR,Pokemon,Darkness,https://assets.tcgdex.net/id/SV/SV8s/232/high.png
+SV8s,233,"Archaludon ex",SR,Pokemon,Metal,https://assets.tcgdex.net/id/SV/SV8s/233/high.png
+SV8s,234,"Alolan Exeggutor ex",SR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/234/high.png
+SV8s,235,"Levigato",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/235/high.png
+SV8s,236,"Kecerdikan Clemont",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/236/high.png
+SV8s,237,"Tatapan Jasmine",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/237/high.png
+SV8s,238,"Daya Tarik Lisia",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/238/high.png
+SV8s,239,"Pikachu ex",SR,Pokemon,Lightning,https://assets.tcgdex.net/id/SV/SV8s/239/high.png
+SV8s,240,"Alolan Exeggutor ex",SR,Pokemon,Dragon,https://assets.tcgdex.net/id/SV/SV8s/240/high.png
+SV8s,241,"Tandu Malam‌",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/241/high.png
+SV8s,242,"Counter Gain",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/242/high.png
+SV8s,243,"Gunung Gravitasi",SR,Trainer,,https://assets.tcgdex.net/id/SV/SV8s/243/high.png
+SV8s,244,"Energi Jet",SR,Energy,,https://assets.tcgdex.net/id/SV/SV8s/244/high.png

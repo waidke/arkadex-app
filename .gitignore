@@ -49,3 +49,6 @@ supabase/.branches/
 
 # agents
 .agents/rules/
+
+# scratch — throwaway scripts & generated SQL, not for repo
+/scratch/
